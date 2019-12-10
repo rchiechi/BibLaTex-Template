@@ -1,26 +1,21 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Place any additional packages needed here.  Only include packages
-%% which are essential, to avoid problems later.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[version=4]{mhchem} % Formula subscripts using \ce{}
 \usepackage[separate-uncertainty=true]{siunitx}
 \sisetup{detect-all}
 \usepackage{enumerate}
 \usepackage{xcolor}
 \usepackage{color, colortbl}
-\usepackage{subfig}
+\usepackage{subfig} % For sub figures because some people like them for some reason
 \usepackage{xr} % For cross-referencing figures
-%\usepackage[bookmarks=true,linkbordercolor={1 1 1},citebordercolor={1 1 1},urlbordercolor={1 1 1}]{hyperref}
 \hypersetup{pdfauthor = {R.C. Chiechi et al},
 pdftitle = {Manuscript for submission},
 pdfsubject = {Manuscript for Submission},
-%pdfkeywords = {Keyword1, Keyword2, ...},
 pdfcreator = {LaTeX with hyperref package},
 colorlinks, breaklinks, linkcolor=black, urlcolor=black, anchorcolor=black, citecolor=black
 }
 
 %
 % BibLaTeX Setup
+% Change options below for different publishers use \autocite{} in the tex files
 %
 \usepackage[utf8]{inputenc}
 \usepackage[style=chem-acs]{biblatex}
@@ -44,8 +39,8 @@ colorlinks, breaklinks, linkcolor=black, urlcolor=black, anchorcolor=black, cite
 \newcommand*{\mica}[1]{$\mathrm{#1}^{\mathrm{Mica}}$}
 \newcommand*{\cp}[1]{$\mathrm{#1}^{\mathrm{AFM}}$}
 
-\newcommand*{\fermi}{$E_\mathrm{f}$}
-\newcommand*{\egap}{$E_\mathrm{g}$}
+\newcommand*{\fermi}{E_\mathrm{f}} % Use inside math
+\newcommand*{\egap}{E_\mathrm{g}} % Use inside math
 \newcommand*{\Junits}{\si{Acm^{-2}}}
 \newcommand*{\logJ}{$\log|J|$}
 \newcommand*{\logI}{$\log|I|$}
@@ -64,7 +59,7 @@ colorlinks, breaklinks, linkcolor=black, urlcolor=black, anchorcolor=black, cite
 \newcommand*{\OPEn}{OPE\textit{n}}
 \newcommand*{\BDT}[1]{\textbf{BDT-#1}}
 
-%macros for this paper
+% Examples of custom macros for this paper
 \newcommand*{\DTT}{\textbf{DTT}}     %DTT
 \newcommand*{\dDTT}{\textbf{\textit{d}-DTT}}  %dimerised DTT
 \newcommand*{\bpDTT}{\textbf{(bp)\textit{d}-DTT}}  %bidentate physisorbed DTT
