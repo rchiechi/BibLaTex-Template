@@ -1,0 +1,83 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Place any additional packages needed here.  Only include packages
+%% which are essential, to avoid problems later.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[version=4]{mhchem} % Formula subscripts using \ce{}
+\usepackage[separate-uncertainty=true]{siunitx}
+\sisetup{detect-all}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage{color, colortbl}
+\usepackage{subfig}
+\usepackage{xr} % For cross-referencing figures
+%\usepackage[bookmarks=true,linkbordercolor={1 1 1},citebordercolor={1 1 1},urlbordercolor={1 1 1}]{hyperref}
+\hypersetup{pdfauthor = {R.C. Chiechi et al},
+pdftitle = {Manuscript for submission},
+pdfsubject = {Manuscript for Submission},
+%pdfkeywords = {Keyword1, Keyword2, ...},
+pdfcreator = {LaTeX with hyperref package},
+colorlinks, breaklinks, linkcolor=black, urlcolor=black, anchorcolor=black, citecolor=black
+}
+
+%
+% BibLaTeX Setup
+%
+\usepackage[utf8]{inputenc}
+\usepackage[style=chem-acs]{biblatex}
+\addbibresource{references.bib}
+%
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Place any additional macros here.  Please use \newcommand* where
+%% possible, and avoid layout changing macros (which are not used
+%% when typesetting).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand*{\ie}{\textit{i.e.}, }
+\newcommand*{\eg}{\textit{e.g.}, }
+
+\newcommand*{\ts}[1]{$\mathrm{#1}^{\mathrm{TS}}$}
+\newcommand*{\mica}[1]{$\mathrm{#1}^{\mathrm{Mica}}$}
+\newcommand*{\cp}[1]{$\mathrm{#1}^{\mathrm{AFM}}$}
+
+\newcommand*{\fermi}{$E_\mathrm{f}$}
+\newcommand*{\egap}{$E_\mathrm{g}$}
+\newcommand*{\Junits}{\si{Acm^{-2}}}
+\newcommand*{\logJ}{$\log|J|$}
+\newcommand*{\logI}{$\log|I|$}
+\newcommand*{\vtrans}{$V_{\mathrm{trans}}$}
+\newcommand*{\vtransp}[1]{$V_{\mathrm{trans}}^{#1}$}
+\newcommand*{\degC}[1]{\SI{#1}{\celsius}}
+\newcommand*{\et}{\textit{et al}.}
+
+% Declare molar units with siunitx
+\DeclareSIUnit\Molar{\textsc{M}}
+
+% Examples of macros for defining molecule abbreviations
+\newcommand*{\Tn}[1]{\textbf{C4T#1}}
+\newcommand*{\TnC}{C4T\textit{n}}
+\newcommand*{\Thn}{T\textit{n}}
+\newcommand*{\OPEn}{OPE\textit{n}}
+\newcommand*{\BDT}[1]{\textbf{BDT-#1}}
+
+%macros for this paper
+\newcommand*{\DTT}{\textbf{DTT}}     %DTT
+\newcommand*{\dDTT}{\textbf{\textit{d}-DTT}}  %dimerised DTT
+\newcommand*{\bpDTT}{\textbf{(bp)\textit{d}-DTT}}  %bidentate physisorbed DTT
+\newcommand*{\mpDTT}{\textbf{(mp)\textit{d}-DTT}}  %monodentate physisorbed DTT
+\newcommand*{\bcDTT}{\textbf{(bc)-DTT}}  %bidentate chemisorbed DTT
+\newcommand*{\C}[1]{\textbf{C#1}}           %use as \C{0}, \C{1}, etc.
+\newcommand*{\Cn}{\textbf{C\textit{n}}}     %lipoic acid, just use as \Cn
+\newcommand*{\EtSH}{\textbf{EtSH}}     %Ethanethiol
+\newcommand*{\AuS}{\textbf{Au--S}}     %Au-S bond
+\newcommand*{\AuSS}{\textbf{Au$\dotsm$(S--S)}}     %Au--S-S bond
+\newcommand*{\AuSSAu}{\textbf{Au$\dotsm$(S--S)$\dotsm$Au}}     %Au--S-S bond
+\newcommand*{\SSbond}{\textbf{S--S}}     %S-S bond
+\newcommand*{\AuSH}{\textbf{Au$\dotsm$SH--R}}     %Au-SH physisorbed bond
+\newcommand*{\AuAu}{\textbf{Au--Au}}     %Au-Au bond
+\newcommand*{\F}{figure}
+\newcommand*{\m}[1]{\textbf{#1m}}     %S-S bond

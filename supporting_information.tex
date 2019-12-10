@@ -1,0 +1,55 @@
+% Load the rcclab class
+\documentclass{rcclab}
+% head.tex contains useful packages and macros
+\include{head}
+% Place all figures for the SI in the directory figures/SI
+\graphicspath{{figures/SI/}}
+% Prepend 'S' to the figure/table/equation numbers
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+% authorlist.tex contains a list of all the authors
+\input{authorlist}
+% Begin the document
+\begin{document}
+% Render the SI title and list of authors
+\maketitlesi
+% affiliations.tex contains the affiliations of each author
+\input{affiliations}
+% Render the table of contents
+\tableofcontents
+
+\newpage
+
+
+\section{A Section}
+
+Some supporting information.\autocite{Chiechi2008}
+
+\section{Another Section}
+
+Some exciting results in Fig. \ref{fig:usefulplot}.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{FigureS1}
+    \caption{An informative figure.}
+    \label{fig:usefulplot}
+\end{figure}
+
+\subsection{A sub section}
+
+
+\begin{equation}
+    \label{eq:beta}
+    J = J_0 e^{-\beta d}
+\end{equation}
+
+
+
+
+\clearpage
+\printbibliography
+
+\end{document}

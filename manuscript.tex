@@ -1,0 +1,81 @@
+% Load the rcclab class
+\documentclass{rcclab}
+% Head.tex includes useful packages and macros  
+\include{head}
+% Place all Main Tex figures in the figures/ subdirectory
+\graphicspath{{figures/}}
+% Load supporting_information.aux to use cross-references
+\externaldocument{supporting_information}
+% authorlist.tex contains the list of authors
+\input{authorlist}
+
+% This is useful for debugging UTF-8 errors
+%\DeclareUnicodeCharacter{0301}{*************************************}
+
+%
+% Begin the document
+%
+\begin{document}
+% Render the title and authors
+\maketitle
+% affiliations.tex contains the affiliations for each author
+\input{affiliations}
+% Write an abstract
+\begin{abstract}
+
+A succinct abstract.
+
+\end{abstract}
+
+% Add some keywords
+\textbf{Keywords:} Keyword 1, Keyword 2, Keyword 3, Keyword 4, Keyword 5
+
+%
+%Target Journal:
+%
+
+\section{Introduction}
+
+An exciting introduction.\autocite{Chiechi2008}
+
+
+
+
+
+\section{Results and Discussion}
+
+Some exciting results in Fig. \ref{fig:usefulplot}.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{Figure1}
+    \caption{An informative figure.}
+    \label{fig:usefulplot}
+\end{figure}
+
+\subsection{A sub heading}
+
+
+\begin{equation}
+    \label{eq:beta}
+    J = J_0 e^{-\beta d}
+\end{equation}
+
+
+
+\section{Conclusions}
+
+Some conclusions.
+
+\section{Experimental}
+\input{experimental}
+
+\section{Acknowledgements}
+
+R.C.C. acknowledges some funding.
+
+\clearpage
+\printbibliography
+
+\end{document}
