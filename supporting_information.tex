@@ -1,19 +1,15 @@
-% Load the rcclab class
-\documentclass{rcclab}
+% Load the rcclab class pass bibstyle=<style> to change biblatex style (chem-acs, chem-rsc, chem-angew, etc.)
+\documentclass[suppinfo]{rcclab}
 % head.tex contains useful packages and macros
 \include{head}
 % Place all figures for the SI in the directory figures/SI
 \graphicspath{{figures/SI/}}
-% Prepend 'S' to the figure/table/equation numbers
-\renewcommand{\thefigure}{S\arabic{figure}}
-\renewcommand{\thetable}{S\arabic{table}}
-\renewcommand{\theequation}{S\arabic{equation}}
 % authorlist.tex contains a list of all the authors
 \input{authorlist}
 % Begin the document
 \begin{document}
-% Render the SI title and list of authors
-\maketitlesi
+% Render the title and list of authors
+\maketitle
 % affiliations.tex contains the affiliations of each author
 \input{affiliations}
 % Render the table of contents

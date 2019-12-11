@@ -1,11 +1,7 @@
-\usepackage[version=4]{mhchem} % Formula subscripts using \ce{}
-\usepackage[separate-uncertainty=true]{siunitx}
+% Setup SI units pacakge for \SI, \si and \SIrange commands
 \sisetup{detect-all}
-\usepackage{enumerate}
-\usepackage{xcolor}
-\usepackage{color, colortbl}
-\usepackage{subfig} % For sub figures because some people like them for some reason
-\usepackage{xr} % For cross-referencing figures
+
+% PDF Meta data and hyper link setup
 \hypersetup{pdfauthor = {R.C. Chiechi et al},
 pdftitle = {Manuscript for submission},
 pdfsubject = {Manuscript for Submission},
@@ -13,15 +9,12 @@ pdfcreator = {LaTeX with hyperref package},
 colorlinks, breaklinks, linkcolor=black, urlcolor=black, anchorcolor=black, citecolor=black
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BibLaTeX bibliography file
 %
-% BibLaTeX Setup
-% Change options below for different publishers use \autocite{} in the tex files
-%
-\usepackage[utf8]{inputenc}
-\usepackage[style=chem-acs]{biblatex}
 \addbibresource{references.bib}
 %
-%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Place any additional macros here.  Please use \newcommand* where
