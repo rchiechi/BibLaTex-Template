@@ -1,12 +1,9 @@
-% Setup SI units pacakge for \SI, \si and \SIrange commands
-\sisetup{detect-all}
-
-% PDF Meta data and hyper link setup
-\hypersetup{pdfauthor = {R.C. Chiechi et al},
-pdftitle = {Manuscript for submission},
-pdfsubject = {Manuscript for Submission},
-pdfcreator = {LaTeX with hyperref package},
-colorlinks, breaklinks, linkcolor=black, urlcolor=black, anchorcolor=black, citecolor=black
+%% PDF Meta data and hyper link setup
+\hypersetup{pdfauthor = {R.C. Chiechi et al},%
+	pdftitle = {Manuscript for submission},%
+	pdfsubject = {Manuscript for Submission},%
+	pdfcreator = {LaTeX with hyperref package},%
+	colorlinks, breaklinks, linkcolor=black, urlcolor=black, anchorcolor=black, citecolor=black%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -16,34 +13,8 @@ colorlinks, breaklinks, linkcolor=black, urlcolor=black, anchorcolor=black, cite
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Place any additional macros here.  Please use \newcommand* where
-%% possible, and avoid layout changing macros (which are not used
-%% when typesetting).
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\red}[1]{\textcolor{red}{#1}}
-\newcommand{\blue}[1]{\textcolor{blue}{#1}}
-\newcommand{\green}[1]{\textcolor{green}{#1}}
-\newcommand*{\ie}{\textit{i.e.}, }
-\newcommand*{\eg}{\textit{e.g.}, }
-
-\newcommand*{\ts}[1]{$\mathrm{#1}^{\mathrm{TS}}$}
-\newcommand*{\mica}[1]{$\mathrm{#1}^{\mathrm{Mica}}$}
-\newcommand*{\cp}[1]{$\mathrm{#1}^{\mathrm{AFM}}$}
-
-\newcommand*{\fermi}{E_\mathrm{f}} % Use inside math
-\newcommand*{\egap}{E_\mathrm{g}} % Use inside math
-\newcommand*{\Junits}{\si{Acm^{-2}}}
-\newcommand*{\logJ}{$\log|J|$}
-\newcommand*{\logI}{$\log|I|$}
-\newcommand*{\vtrans}{$V_{\mathrm{trans}}$}
-\newcommand*{\vtransp}[1]{$V_{\mathrm{trans}}^{#1}$}
-\newcommand*{\degC}[1]{\SI{#1}{\celsius}}
-\newcommand*{\et}{\textit{et al}.}
-
-% Declare molar units with siunitx
-\DeclareSIUnit\Molar{\textsc{M}}
+%% Macros %%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Examples of macros for defining molecule abbreviations
 \newcommand*{\Tn}[1]{\textbf{C4T#1}}

@@ -55,7 +55,6 @@
     {\noindent\sloppy \@author}%
 }
 
-
 %% Define the affiliations environment, list each institution as an \item
 %% Put after \maketitle
 \newenvironment{affiliations}{%
@@ -103,3 +102,31 @@
     \section*{Experimental}%
     \setlength{\parskip}{12pt}%
     }{}
+
+% Setup SI units pacakge for \SI, \si and \SIrange commands
+\sisetup{detect-all}
+
+%% Provide some common macros
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+
+\newcommand*{\ie}{\textit{i.e.}, }
+\newcommand*{\eg}{\textit{e.g.}, }
+\newcommand*{\et}{\textit{et al}.}
+
+\newcommand*{\ts}[1]{$\mathrm{#1}^{\mathrm{TS}}$}
+\newcommand*{\mica}[1]{$\mathrm{#1}^{\mathrm{Mica}}$}
+\newcommand*{\cp}[1]{$\mathrm{#1}^{\mathrm{AFM}}$}
+
+\newcommand*{\fermi}{E_\mathrm{f}} % Use inside math
+\newcommand*{\egap}{E_\mathrm{g}} % Use inside math
+\newcommand*{\Junits}{\si{Acm^{-2}}}
+\newcommand*{\logJ}{$\log|J|$}
+\newcommand*{\logI}{$\log|I|$}
+\newcommand*{\vtrans}{$V_{\mathrm{trans}}$}
+\newcommand*{\vtransp}[1]{$V_{\mathrm{trans}}^{#1}$}
+\newcommand*{\degC}[1]{\SI{#1}{\celsius}}
+
+% Declare molar units with siunitx
+\DeclareSIUnit\Molar{\textsc{M}}
