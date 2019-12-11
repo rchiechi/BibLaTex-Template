@@ -1,6 +1,7 @@
 *.aux
 *.bbl
 *.synctex.gz
+*.synctex(busy)
 *.blg
 *.bcf
 *.out
