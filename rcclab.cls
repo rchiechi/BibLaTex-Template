@@ -128,5 +128,8 @@
 \newcommand*{\vtransp}[1]{$V_{\mathrm{trans}}^{#1}$}
 \newcommand*{\degC}[1]{\SI{#1}{\celsius}}
 
-% Declare molar units with siunitx
+
+% Chemistry Units
+\DeclareSIUnit\molar{\mole\per\cubic\deci\metre}
 \DeclareSIUnit\Molar{\textsc{M}}
+\DeclareSIUnit\torr{torr}
