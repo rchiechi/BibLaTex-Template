@@ -7,6 +7,7 @@
 \typeout{ }
 
 \LoadClass[12pt]{article}
+\RequirePackage{setspace}
 \RequirePackage{stix} % Super nice science font
 \RequirePackage{fullpage} % Non-stupid layout
 \RequirePackage{graphicx} % Figures
@@ -32,10 +33,17 @@
 \RequirePackage{biblatex} % For BibLaTeX referencing
 
 %% Some style parameters
+
+\captionsetup{justification=justified,%
+              font={md,singlespacing},%
+              labelfont=bf%
+              }
+
 \setlength{\parindent}{0.39in}
 \setlength{\parskip}{18pt}
-\newcommand{\spacing}[1]{\renewcommand{\baselinestretch}{#1}\large\normalsize}
+\renewcommand{\spacing}[1]{\renewcommand{\baselinestretch}{#1}\large\normalsize}
 \spacing{2}
+
 
 \ifrcclab@suppinfo
   \def\thepage{S-\arabic{page}}
