@@ -66,6 +66,7 @@
 %% Define the affiliations environment, list each institution as an \item
 %% Put after \maketitle
 \newenvironment{affiliations}{%
+    \renewcommand{\baselinestretch}{1}
     \setcounter{enumi}{1}%
     \setlength{\parindent}{0in}%
     \slshape\sloppy%
@@ -81,8 +82,18 @@
         }
     }{\end{list}\par\vspace{12pt}}
 
+%% Itemize list for outlining
+\newenvironment{outline}{%
+    \renewcommand{\baselinestretch}{1}
+    \setlength{\parindent}{0in}%
+    \normalfont%
+    \begin{itemize}{}{}%
+}{\end{itemize}}
+
 % Redefine the abstract environment to be the first centered paragraph
 \renewenvironment{abstract}{%
+    \renewcommand{\baselinestretch}{1}%
+    \textbf{Abstract}%
     \setlength{\parindent}{0in}%
     \setlength{\parskip}{0in}%
     \centering%
@@ -112,29 +123,29 @@
     }{}
 
 % Setup SI units pacakge for \SI, \si and \SIrange commands
-\sisetup{detect-all}
+\sisetup{detect-all}%
 
 %% Provide some common macros
-\newcommand{\red}[1]{\textcolor{red}{#1}}
-\newcommand{\blue}[1]{\textcolor{blue}{#1}}
-\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}%
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}%
+\newcommand{\green}[1]{\textcolor{green}{#1}}%
 
-\newcommand*{\ie}{\textit{i.e.}, }
-\newcommand*{\eg}{\textit{e.g.}, }
-\newcommand*{\et}{\textit{et al}.}
+\newcommand*{\ie}{\textit{i.e.}, }%
+\newcommand*{\eg}{\textit{e.g.}, }%
+\newcommand*{\et}{\textit{et al}.}%
 
-\newcommand*{\ts}[1]{$\mathrm{#1}^{\mathrm{TS}}$}
-\newcommand*{\mica}[1]{$\mathrm{#1}^{\mathrm{Mica}}$}
-\newcommand*{\cp}[1]{$\mathrm{#1}^{\mathrm{AFM}}$}
+\newcommand*{\ts}[1]{$\mathrm{#1}^{\mathrm{TS}}$}%
+\newcommand*{\mica}[1]{$\mathrm{#1}^{\mathrm{Mica}}$}%
+\newcommand*{\cp}[1]{$\mathrm{#1}^{\mathrm{AFM}}$}%
 
 \newcommand*{\fermi}{E_\mathrm{f}} % Use inside math
 \newcommand*{\egap}{E_\mathrm{g}} % Use inside math
-\newcommand*{\Junits}{\si{Acm^{-2}}}
-\newcommand*{\logJ}{$\log|J|$}
-\newcommand*{\logI}{$\log|I|$}
-\newcommand*{\vtrans}{$V_{\mathrm{trans}}$}
-\newcommand*{\vtransp}[1]{$V_{\mathrm{trans}}^{#1}$}
-\newcommand*{\degC}[1]{\SI{#1}{\celsius}}
+\newcommand*{\Junits}{\si{Acm^{-2}}}%
+\newcommand*{\logJ}{$\log|J|$}%
+\newcommand*{\logI}{$\log|I|$}%
+\newcommand*{\vtrans}{$V_{\mathrm{trans}}$}%
+\newcommand*{\vtransp}[1]{$V_{\mathrm{trans}}^{#1}$}%
+\newcommand*{\degC}[1]{\SI{#1}{\celsius}}%
 
 
 % Chemistry Units
