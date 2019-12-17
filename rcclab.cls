@@ -136,6 +136,7 @@
 
 \newcommand*{\ts}[1]{$\mathrm{#1}^{\mathrm{TS}}$}%
 \newcommand*{\mica}[1]{$\mathrm{#1}^{\mathrm{Mica}}$}%
+\newcommand*{\afm}[1]{$\mathrm{#1}^{\mathrm{AFM}}$}%
 \newcommand*{\cp}[1]{$\mathrm{#1}^{\mathrm{AFM}}$}%
 
 \newcommand*{\fermi}{E_\mathrm{f}} % Use inside math
