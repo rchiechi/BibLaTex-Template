@@ -11,5 +11,6 @@
 *.toc
 *.swp
 *.run.xml
+*.tks
 manuscript\.pdf
 supporting_information\.pdf
