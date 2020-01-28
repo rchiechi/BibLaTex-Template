@@ -21,10 +21,10 @@
 \RequirePackage{ifthen}
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{%
-   family=rcclab,
-   prefix=rcclab@,
-   % setkeys=\kvsetkeys,
-   }
+ family=rcclab,
+ prefix=rcclab@,
+ % setkeys=\kvsetkeys,
+}
 
 \DeclareStringOption[chem-acs]{bibstyle}[chem-acs]
 \DeclareBoolOption[false]{suppinfo}
@@ -35,9 +35,9 @@
 %% Some style parameters
 
 \captionsetup{justification=justified,%
-              font={md,singlespacing},%
-              labelfont=bf%
-              }
+ font={md,singlespacing},%
+ labelfont=bf%
+}
 
 \setlength{\parindent}{0.39in}
 \setlength{\parskip}{18pt}
@@ -46,81 +46,81 @@
 
 
 \ifrcclab@suppinfo
-  \def\thepage{S-\arabic{page}}
-  \renewcommand*\thefigure{S\@arabic\c@figure}
-  \renewcommand*\thetable{S\@arabic\c@table}
-  \renewcommand{\theequation}{S\arabic{equation}}
-  \newcommand{\@siprefix}{Supporting Information for: }
+ \def\thepage{S-\arabic{page}}
+ \renewcommand*\thefigure{S\@arabic\c@figure}
+ \renewcommand*\thetable{S\@arabic\c@table}
+ \renewcommand{\theequation}{S\arabic{equation}}
+ \newcommand{\@siprefix}{Supporting Information for: }
 \else
-  \newcommand{\@siprefix}{}
+ \newcommand{\@siprefix}{}
 \fi
 
 
 %% Redefine \maketitle for RCCLab style
 \def\@maketitle{%
-  \newpage\spacing{1}\setlength{\parskip}{12pt}%
-    {\Large\bfseries\noindent\sloppy \@siprefix \textsf{\@title} \par}%
-    {\noindent\sloppy \@author}%
+ \newpage\spacing{1}\setlength{\parskip}{12pt}%
+ {\Large\bfseries\noindent\sloppy \@siprefix \textsf{\@title} \par}%
+ {\noindent\sloppy \@author}%
 }
 
 %% Define the affiliations environment, list each institution as an \item
 %% Put after \maketitle
 \newenvironment{affiliations}{%
-    \renewcommand{\baselinestretch}{1}
-    \setcounter{enumi}{1}%
-    \setlength{\parindent}{0in}%
-    \slshape\sloppy%
-    \begin{list}{\upshape$^{\arabic{enumi}}$}{%
-        \usecounter{enumi}%
-        \setlength{\leftmargin}{0in}%
-        \setlength{\topsep}{0in}%
-        \setlength{\labelsep}{0in}%
-        \setlength{\labelwidth}{0in}%
-        \setlength{\listparindent}{0in}%
-        \setlength{\itemsep}{0ex}%
+ \renewcommand{\baselinestretch}{1}
+ \setcounter{enumi}{1}%
+ \setlength{\parindent}{0in}%
+ \slshape\sloppy%
+ \begin{list}{\upshape$^{\arabic{enumi}}$}{%
+  \usecounter{enumi}%
+  \setlength{\leftmargin}{0in}%
+  \setlength{\topsep}{0in}%
+  \setlength{\labelsep}{0in}%
+  \setlength{\labelwidth}{0in}%
+  \setlength{\listparindent}{0in}%
+  \setlength{\itemsep}{0ex}%
         \setlength{\parsep}{0in}%
         }
-    }{\end{list}\par\vspace{12pt}}
+        }{\end{list}\par\vspace{12pt}}
 
 %% Itemize list for outlining
 \newenvironment{outline}{%
-    \renewcommand{\baselinestretch}{1}
-    \setlength{\parindent}{0in}%
-    \normalfont%
-    \begin{itemize}{}{}%
-}{\end{itemize}}
+ \renewcommand{\baselinestretch}{1}
+ \setlength{\parindent}{0in}%
+ \normalfont%
+ \begin{itemize}{}{}%
+  }{\end{itemize}}
 
 % Redefine the abstract environment to be the first centered paragraph
 \renewenvironment{abstract}{%
-    \renewcommand{\baselinestretch}{1}%
-    \textbf{Abstract}%
-    \setlength{\parindent}{0in}%
-    \setlength{\parskip}{0in}%
-    \centering%
-    }{\par\vspace{-6pt}}
+ \renewcommand{\baselinestretch}{1}%
+ \textbf{Abstract}%
+ \setlength{\parindent}{0in}%
+ \setlength{\parskip}{0in}%
+ \centering%
+}{\par\vspace{-6pt}}
 
 
 %% Redefine the \section command.
 \renewcommand{\section}{\@startsection {section}{1}{0pt}%
-    {-6pt}{1pt}%
-    {\bfseries}%
-    }
+ {-6pt}{1pt}%
+ {\bfseries}%
+}
 \renewcommand{\subsection}{\@startsection {subsection}{2}{0pt}%
-    {-0pt}{-0.5em}%
-    {\bfseries}*%
-    }
+ {-0pt}{-0.5em}%
+ {\bfseries}*%
+}
 
 %% Define the methods environment.  Use \subsection to separate.
 \newenvironment{methods}{%
-    \section*{Methods}%
-    \setlength{\parskip}{12pt}%
-    }{}
+ \section*{Methods}%
+ \setlength{\parskip}{12pt}%
+}{}
 
 %% Define the experimental environment.  Use \subsection to separate.
 \newenvironment{experimental}{%
-    \section*{Experimental}%
-    \setlength{\parskip}{12pt}%
-    }{}
+ \section*{Experimental}%
+ \setlength{\parskip}{12pt}%
+}{}
 
 % Setup SI units pacakge for \SI, \si and \SIrange commands
 \sisetup{detect-all}%
