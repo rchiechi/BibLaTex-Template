@@ -5,6 +5,7 @@ BibLaTex-Template defines a class and provides example files for writing scienti
 A LaTeX class for writing articles.
 
 #### Macros Defined:  
+
 Colors:  
 * \red{ ... }
 * \blue{ ... }
