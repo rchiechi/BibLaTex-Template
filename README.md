@@ -9,19 +9,23 @@ A LaTeX class for writing articles.
 Colors:  
 * \red{ ... }
 * \blue{ ... }
-* \green{ ... }  
+* \green{ ... }
+
 Latin abbreviations:  
 * \ie{ ... } *i.e.,*
 * \eg{ ... } *e.g.,*
 * \et{ ... } *et al.*  
+
 Template-stripped surfaces:  
 * \ts{ Metal } *Metal<sup>TS</sup>*
 * \mica{ Metal } *Metal<sup>Mica</sup>*
 * \afp{ Metal } *Metal<sup>AFM</sup>*
 * \cp{ Metal } *Metal<sup>AFM</sup>*  
+
 Constants:
 * $\fermi$ *E<sub>f</sub>*
 * $\egap$ *E<sub>g</sub>*  
+
 Units:  
 * \Junits *A cm<sup>-2</sup>*
 * \logJ *log|J|*
