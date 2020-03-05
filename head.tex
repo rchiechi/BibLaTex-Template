@@ -16,6 +16,12 @@
 
 %% Macros %%%%%%%%%%%%%%%%%%%%%%%%%
 
+%Enables \citeum with biblatex (to output the number of a reference in normal case)
+\DeclareCiteCommand{\citenum}
+  {}
+  {\printfield{labelnumber}}
+  {}
+  {}
 % Examples of macros for defining molecule abbreviations
 \newcommand*{\Tn}[1]{\textbf{C4T#1}}
 \newcommand*{\TnC}{C4T\textit{n}}
