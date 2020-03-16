@@ -99,7 +99,8 @@
  \centering%
 }{\par\vspace{-6pt}}
 
-
+\ifrcclab@suppinfo
+\else
 %% Redefine the \section command.
 \renewcommand{\section}{\@startsection {section}{1}{0pt}%
  {-6pt}{1pt}%
@@ -109,6 +110,7 @@
  {-0pt}{-0.5em}%
  {\bfseries}*%
 }
+\fi
 
 %% Define the methods environment.  Use \subsection to separate.
 \newenvironment{methods}{%
