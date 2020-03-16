@@ -153,3 +153,4 @@
 \DeclareSIUnit\molar{\mole\per\cubic\deci\metre}
 \DeclareSIUnit\Molar{\textsc{M}}
 \DeclareSIUnit\torr{torr}
+\DeclareSIUnit\calorie{cal}
