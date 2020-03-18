@@ -128,6 +128,12 @@
 \sisetup{detect-all}%
 
 %% Provide some common macros
+\DeclareCiteCommand{\citenum}
+  {}
+  {\printfield{labelnumber}}
+  {}
+  {}
+
 \newcommand{\red}[1]{\textcolor{red}{#1}}%
 \newcommand{\blue}[1]{\textcolor{blue}{#1}}%
 \newcommand{\green}[1]{\textcolor{green}{#1}}%
