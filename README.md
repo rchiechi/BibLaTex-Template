@@ -33,3 +33,6 @@ Units:
 * \vtrans *V<sub>trans</sub>*
 * \vtransp{ +/- } *V<sub>trans</sub><sup>+/-</sup>*
 * \degC{ ... } *...°C*
+
+References:
+* \citenum{} *Write out the number of a reference in normal case.*
