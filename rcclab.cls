@@ -11,6 +11,7 @@
 \RequirePackage{stix} % Super nice science font
 \RequirePackage{fullpage} % Non-stupid layout
 \RequirePackage{graphicx} % Figures
+\RequirePackage{float} % So we can force figures to appear in the rigth place
 \RequirePackage[version=4]{mhchem} % Formula subscripts using \ce{}
 \RequirePackage{xcolor} % For colored text
 \RequirePackage[separate-uncertainty=true]{siunitx} % Enables \SI{} for units
