@@ -184,7 +184,8 @@ do
     continue
   fi
   echo ${TEX} | grep -q \.tex
-  if [[ "$?" == 0 ]] ; then
+  if [[ "$?" == 0 ]] && [[ -f ${TEX} ]] ; then
+    echo "${YELLOW}Parsing ${TEX}${RS}."
     TEXFILES+=($TEX)
     echo "Finding deps for ${TEX}"
     finddeps "${TEX}" | xargs -n 1 -I % rsync -q --relative % "${TMPDIR}"
@@ -198,6 +199,11 @@ do
   fi
 done
 IFS=$SAVEIFS
+
+if [[ ${#TEXFILES[@]} == 0 ]]; then
+  echo "${RED}No tex files to parse.${RS}"
+  exit 0
+fi
 
 cd "${TMPDIR}"
 if [ $? == 0 ]
