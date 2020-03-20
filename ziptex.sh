@@ -103,7 +103,8 @@ cataux() { # This function should only be called from $TMPDIR
 flattendirs() { # This function should only be called from $TMPDIR
   for TEX in ${TEXFILES[@]}; do
     echo "${LIME_YELLOW}Flattening directory structure for ${TEX}.${RS}"
-    _gfxpath=$(grep graphicspath ${TEX}| cut -d '{' -f '2-' | tr -d '{}/')
+    _gfxpath=$(grep graphicspath ${TEX}| cut -d '{' -f '2-' | tr -d '{}')
+    _gfxpath=${_gfxpath%/}
     if [[ ! -d "${_gfxpath}" ]]; then
       ls
       echo "${RED} Warning: graphicspath \"${_gfxpath}\" not found (could be a case-sensitivity issue!"
