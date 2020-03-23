@@ -28,9 +28,10 @@
 }
 
 \DeclareStringOption[chem-acs]{bibstyle}[chem-acs]
+\DeclareStringOption[false]{articletitle}[false]
 \DeclareBoolOption[false]{suppinfo}
 \ProcessKeyvalOptions{rcclab}
-\PassOptionsToPackage{style=\rcclab@bibstyle}{biblatex}
+\PassOptionsToPackage{style=\rcclab@bibstyle,articletitle=\rcclab@articletitle}{biblatex}
 \RequirePackage{biblatex} % For BibLaTeX referencing
 
 %% Some style parameters
