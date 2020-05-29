@@ -48,16 +48,19 @@ finddeps() {
 }
 
 checktex() { # This function should only be called from $TMPDIR
+  TMPLOG="/tmp/ziptex.log"
   local __texok=0
   for TEX in ${TEXFILES[@]}; do
-    pdflatex -draft -halt-on-error "${TEX}" >/dev/null
+    pdflatex -draft -halt-on-error "${TEX}" > "$TMPLOG"
     if [[ $? == 0 ]]; then
       echo "${GREEN}${TEX} is OK.${RS}"
     else
       echo "${RED}${TEX} is NOT OK.${RS}"
+      cat "$TMPLOG"
       __texok=1
     fi
   done
+  rm "$TMPLOG"
   return $__texok
 }
 
