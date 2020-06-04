@@ -69,14 +69,11 @@ catclass() { # This function should only be called from $TMPDIR
   # If a copy of the cls file exists locally, use that one
   [[ -f "$(basename "${CUSTOM_CLASS}")" ]] && classfile="$(basename "${CUSTOM_CLASS}")" || classfile=${CUSTOM_CLASS}
   for TEX in "${TEXFILES[@]}"; do
-    grep '\\documentclass' "${TEX}" | grep -q $(basename ${classfile} | sed 's/\.cls//g')
-    if [[ $? == 0 ]]; then
-      echo "${LIME_YELLOW}Concatenating $(basename ${classfile}) into ${TEX} for portability.${RS}"
+    if grep '\\documentclass' "${TEX}" | grep -q "$(basename "${classfile}" | sed 's/\.cls//g')"; then
+      echo "${LIME_YELLOW}Concatenating $(basename "${classfile}") into ${TEX} for portability.${RS}"
       mv "${TEX}" "${TEX}.orig"
-      printf "\\\begin{filecontents}{$(basename ${classfile})}\n" > "${TEX}"
-      cat "${classfile}" >> "${TEX}"
-      printf "\\\end{filecontents}\n" >> "${TEX}"
-      cat "${TEX}.orig" >> "${TEX}"
+      printf "\\\begin{filecontents}{%s}\n" "$(basename "${classfile}")" > "${TEX}"
+      { cat "${classfile}"; printf "\\\end{filecontents}\n"; cat "${TEX}.orig"; } >> "${TEX}"
       rm "${TEX}.orig"
       [[ "$classfile" != "${CUSTOM_CLASS}" ]] && echo "$classfile" >> .todel
     fi
@@ -90,10 +87,8 @@ cataux() { # This function should only be called from $TMPDIR
       if grep -Eq ".*?\{\s*${aux%.*}\s*\}.*?" "${TEX}"; then
         echo "${LIME_YELLOW}Concatenating $(basename "${aux}") into ${TEX} files for portability.${RS}"
         mv "${TEX}" "${TEX}.orig"
-        printf "\\\begin{filecontents}{$(basename "${aux}")}\n" > "${TEX}"
-        cat "${aux}" >> "${TEX}"
-        printf "\\\end{filecontents}\n" >> "${TEX}"
-        cat "${TEX}.orig" >> "${TEX}"
+        printf "\\\begin{filecontents}{%s}\n" "$(basename "${aux}")" > "${TEX}"
+        { cat "${aux}"; printf "\\\end{filecontents}\n"; cat "${TEX}.orig"; } >> "${TEX}"
         rm "${TEX}.orig"
         echo "${aux}" >> .todel
       fi
@@ -180,8 +175,12 @@ while getopts ":o:zjf" options; do
 done
 
 # Convert OUTDIR to absolute path
-OUTDIR="$(cd "$OUTDIR"; pwd)"
-
+if cd "${OUTDIR}"; then
+    OUTDIR="$(pwd)"
+else
+    echo "${RED}Cannot chdir to \"${OUTDIR}\"${RS}"
+    exit 1
+fi
 if [[ ! -d "$OUTDIR" ]]; then
   echo "${RED}${OUTDIR} is not a directory!${RS}"
   exit_abnormal
@@ -193,10 +192,11 @@ if [[ $ZIP == 0 && $BZ == 0 ]]; then
 fi
 
 
-if [[ ! -d "${TMPDIR}" ]] ; then mkdir "${TMPDIR}"; fi
-if [ $? != 0 ] ; then
-  echo "Error creating ${TMPDIR} exiting."
-  exit 1
+if [[ ! -d "${TMPDIR}" ]]; then 
+  if ! mkdir "${TMPDIR}"; then
+    echo "Error creating ${TMPDIR} exiting."
+    exit 1
+  fi
 fi
 
 TEXFILES=()
@@ -211,8 +211,7 @@ do
     fi
     continue
   fi
-  echo ${TEX} | grep -q \.tex
-  if [[ "$?" == 0 ]] && [[ -f ${TEX} ]] ; then
+  if echo "${TEX}" | grep -q \.tex && [[ -f "${TEX}" ]]; then
     echo "${YELLOW}Parsing ${TEX}${RS}."
     TEXFILES+=("$TEX")
     echo "Finding deps for ${TEX}"
