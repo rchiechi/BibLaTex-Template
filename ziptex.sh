@@ -103,6 +103,26 @@ cataux() { # This function should only be called from $TMPDIR
   done
 }
 
+flattentex() { # This function should only be called fom $TMPDIR
+  for TEX in ${TEXFILES[@]}; do
+    echo "${LIME_YELLOW}Flattening \input and \include statements in ${TEX}.${RS}"
+    mv "${TEX}" "${TEX}_tmp.tex"
+    if [[ -f "${TEX%.*}.bbl" ]]; then
+        latexpand --verbose --fatal --expand-usepackage --expand-bbl "${TEX%.*}.bbl -o "${TEX}" "${TEX}_tmp.tex"
+        _result=$?
+    else
+        latexpand --verbose --fatal --expand-usepackage -o "${TEX}" "${TEX}_tmp.tex"
+        _result=$?
+    fi
+    rm "${TEX}_tmp.tex" 2>/dev/null
+    if ${_result}; then
+      echo "${GREEN}${TEX} flattened.${RS}"
+    else
+      echo "${RED}latespand failed for ${TEX}.${RS}"
+      exit 1
+    fi
+}
+
 flattendirs() { # This function should only be called from $TMPDIR
   for TEX in ${TEXFILES[@]}; do
     echo "${LIME_YELLOW}Flattening directory structure for ${TEX}.${RS}"
@@ -127,6 +147,11 @@ if [ ! -n "$1" ]; then
   exit 0
 fi
 
+if ! which latexpand; then
+  echo "The latexpand command was not found in your path, it should be included with texlive..."
+  exit 0
+fi
+  
 ZIP=0
 BZ=0
 FORCE=0
@@ -193,7 +218,7 @@ do
     TEXFILES+=($TEX)
     echo "Finding deps for ${TEX}"
     finddeps "${TEX}" | xargs -n 1 -I % rsync -q --relative % "${TMPDIR}"
-    BIB=$(grep '\\bibliography' manuscript.tex | cut -d '{' -f 2 | sed 's+}+.bib+')
+    BIB=$(grep '\\bibliography' ${TEX} | cut -d '{' -f 2 | sed 's+}+.bib+')
     if [[ -f "$BIB" ]] ; then
       echo "${POWDER_BLUE}Adding ${BIB}${RS}"
       cp "${BIB}" "${TMPDIR}"
@@ -214,8 +239,9 @@ if [ $? == 0 ]
 then
   cataux # Cat any aux files required to render the tex file for portability
   catclass  # Cat the custom class file into the tex file for portability
-  echo "${LIME_YELLOW}Removing comments from *.tex${RS}"
-  printf '%s\0' *.tex | xargs -0 -n 1 sed -i.bak '/^%.*$/d'
+  flattentex # Fold all \include and \input statements
+  #echo "${LIME_YELLOW}Removing comments from *.tex${RS}"
+  #printf '%s\0' *.tex | xargs -0 -n 1 sed -i.bak '/^%.*$/d'
   flattendirs # Get rid of graphicspath and flatten directory structure
   checktex # Make sure the cleaned tex files are OK
   texok=$?
