@@ -112,7 +112,7 @@ flattentex() { # This function should only be called fom $TMPDIR
       echo "${GREEN}${TEX} flattened.${RS}"
     else
       echo "${RED}latespand failed for ${TEX}.${RS}"
-      exit 1
+      exit_abnormal
     fi
   done
 }
@@ -175,12 +175,8 @@ while getopts ":o:zjf" options; do
 done
 
 # Convert OUTDIR to absolute path
-if cd "${OUTDIR}"; then
-    OUTDIR="$(pwd)"
-else
-    echo "${RED}Cannot chdir to \"${OUTDIR}\"${RS}"
-    exit 1
-fi
+# shellcheck disable=SC2164
+OUTDIR=$(cd "${OUTDIR}"; pwd)
 if [[ ! -d "$OUTDIR" ]]; then
   echo "${RED}${OUTDIR} is not a directory!${RS}"
   exit_abnormal
@@ -195,7 +191,7 @@ fi
 if [[ ! -d "${TMPDIR}" ]]; then 
   if ! mkdir "${TMPDIR}"; then
     echo "Error creating ${TMPDIR} exiting."
-    exit 1
+    exit_abnormal
   fi
 fi
 
@@ -211,9 +207,10 @@ do
     fi
     continue
   fi
+  
   if echo "${TEX}" | grep -q \.tex && [[ -f "${TEX}" ]]; then
     echo "${YELLOW}Parsing ${TEX}${RS}."
-    TEXFILES+=("$TEX")
+    TEXFILES+=("${TEX}")
     echo "Finding deps for ${TEX}"
     finddeps "${TEX}" | xargs -n 1 -I % rsync -q --relative % "${TMPDIR}"
     BIB=$(grep '\\bibliography' "${TEX}" | cut -d '{' -f 2 | sed 's+}+.bib+')
@@ -272,5 +269,5 @@ then
   rm -fr "${TMPDIR}"
 else
   echo "${RED}Error enterting temp dir ${TMPDIR}${RS}"
-  exit 1
+  exit_abnormal
 fi
