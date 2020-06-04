@@ -255,6 +255,8 @@ then
     for TEX in "${TEXFILES[@]}"; do
         finddeps "${TEX}" | sed 's+\./++g' >> .tozip
     done
+    # .tozip has one file per line and sed quotes them already
+    # shellcheck disable=SC2046
     zip -r9 "${OUTDIR}/${BASENAME}.zip" $(uniq .tozip | sed 's+\(.*?\)+"\1"+g')
   fi
   if [[ $BZ == 1 ]] && [[ $texok == 0 ]]; then
@@ -262,7 +264,8 @@ then
     for TEX in "${TEXFILES[@]}"; do
         finddeps "${TEX}" | sed 's+\./++g' >> .tozip
     done
-    uniq .tozip | sed 's+\(.*?\)+"\1"+g'
+    # .tozip has one file per line and sed quotes them already
+    # shellcheck disable=SC2046
     tar -cjvf "${OUTDIR}/${BASENAME}.tar.bz2" $(uniq .tozip | sed 's+\(.*?\)+"\1"+g')
   fi
   cd ..
