@@ -242,32 +242,32 @@ then
   checktex # Make sure the cleaned tex files are OK
   texok=$?
   [[ $FORCE == 1 ]] && texok=0
-  # Cleanup
+  # Get deps from concatenated tex file
+  for TEX in "${TEXFILES[@]}"; do
+    finddeps "${TEX}" | sed 's+\./++g' >> .tozip
+  done
+  # Cleanup files that were concatenated
   while read -r todel; do
     echo "${BLUE}Cleaning up $todel."
     rm "$todel"
+    sed -i.bak "/${todel}/d" .tozip
   done < <(cat .todel)
+  sed -i.bak '/.*\.out/d' .tozip
   rm ./*.out ./*.bak .todel 2>/dev/null
-  rm .tozip 2>/dev/null
-
+  
   if [[ $ZIP == 1 ]] && [[ $texok == 0 ]]; then
     echo "${POWDER_BLUE}Compressing files to ${OUTDIR}/${BASENAME}.zip${RS}"
-    for TEX in "${TEXFILES[@]}"; do
-        finddeps "${TEX}" | sed 's+\./++g' >> .tozip
-    done
     # .tozip has one file per line and sed quotes them already
     # shellcheck disable=SC2046
-    zip -r9 "${OUTDIR}/${BASENAME}.zip" $(uniq .tozip | sed 's+\(.*?\)+"\1"+g')
+    zip -r9 "${OUTDIR}/${BASENAME}.zip" $(uniq .tozip | sed 's+\(.*?\)+"\1"+g') 2>/dev/null
   fi
   if [[ $BZ == 1 ]] && [[ $texok == 0 ]]; then
     echo "${POWDER_BLUE}Compressing files to ${OUTDIR}/${BASENAME}.tar.bz2${RS}"
-    for TEX in "${TEXFILES[@]}"; do
-        finddeps "${TEX}" | sed 's+\./++g' >> .tozip
-    done
     # .tozip has one file per line and sed quotes them already
     # shellcheck disable=SC2046
     tar -cjvf "${OUTDIR}/${BASENAME}.tar.bz2" $(uniq .tozip | sed 's+\(.*?\)+"\1"+g')
   fi
+  rm .tozip 2>/dev/null
   cd ..
   rm -fr "${TMPDIR}"
 else
