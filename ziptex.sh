@@ -17,14 +17,14 @@ GREEN=$(tput setaf 2 2>/dev/null)
 YELLOW=$(tput setaf 3 2>/dev/null)
 LIME_YELLOW=$(tput setaf 190 2>/dev/null)
 POWDER_BLUE=$(tput setaf 153 2>/dev/null)
-BLUE=$(tput setaf 4 2>/dev/null)
-MAGENTA=$(tput setaf 5 2>/dev/null)
-CYAN=$(tput setaf 6 2>/dev/null)
-WHITE=$(tput setaf 7 2>/dev/null)
-BRIGHT=$(tput bold 2>/dev/null)
-BLINK=$(tput blink 2>/dev/null)
-REVERSE=$(tput smso 2>/dev/null)
-UNDERLINE=$(tput smul 2>/dev/null)
+#BLUE=$(tput setaf 4 2>/dev/null)
+#MAGENTA=$(tput setaf 5 2>/dev/null)
+#CYAN=$(tput setaf 6 2>/dev/null)
+#WHITE=$(tput setaf 7 2>/dev/null)
+#BRIGHT=$(tput bold 2>/dev/null)
+#BLINK=$(tput blink 2>/dev/null)
+#REVERSE=$(tput smso 2>/dev/null)
+#UNDERLINE=$(tput smul 2>/dev/null)
 RS=$(tput sgr0 2>/dev/null)
 
 #######################
@@ -44,15 +44,14 @@ exit_abnormal() {
 
 finddeps() {
   pdflatex -draft -record -halt-on-error "$1" >/dev/null
-  awk '!x[$0]++' ${1%.tex}.fls | sed '/^INPUT \/.*/d' | sed '/^OUTPUT .*/d' | sed '/^PWD .*/d' | sed 's/^INPUT //g'
+  awk '!x[$0]++' "${1%.tex}.fls" | sed '/^INPUT \/.*/d' | sed '/^OUTPUT .*/d' | sed '/^PWD .*/d' | sed 's/^INPUT //g'
 }
 
 checktex() { # This function should only be called from $TMPDIR
   TMPLOG="/tmp/ziptex.log"
   local __texok=0
-  for TEX in ${TEXFILES[@]}; do
-    pdflatex -draft -halt-on-error "${TEX}" > "$TMPLOG"
-    if [[ $? == 0 ]]; then
+  for TEX in "${TEXFILES[@]}"; do
+    if pdflatex -draft -halt-on-error "${TEX}" > "$TMPLOG"; then
       echo "${GREEN}${TEX} is OK.${RS}"
     else
       echo "${RED}${TEX} is NOT OK.${RS}"
@@ -68,8 +67,8 @@ catclass() { # This function should only be called from $TMPDIR
   # Check for CUSTOM_CLASS
   [[ -z ${CUSTOM_CLASS} ]] && return
   # If a copy of the cls file exists locally, use that one
-  [[ -f $(basename ${CUSTOM_CLASS}) ]] && classfile=$(basename ${CUSTOM_CLASS}) || classfile=${CUSTOM_CLASS}
-  for TEX in ${TEXFILES[@]}; do
+  [[ -f "$(basename "${CUSTOM_CLASS}")" ]] && classfile="$(basename "${CUSTOM_CLASS}")" || classfile=${CUSTOM_CLASS}
+  for TEX in "${TEXFILES[@]}"; do
     grep '\\documentclass' "${TEX}" | grep -q $(basename ${classfile} | sed 's/\.cls//g')
     if [[ $? == 0 ]]; then
       echo "${LIME_YELLOW}Concatenating $(basename ${classfile}) into ${TEX} for portability.${RS}"
@@ -85,14 +84,13 @@ catclass() { # This function should only be called from $TMPDIR
 }
 
 cataux() { # This function should only be called from $TMPDIR
-  for TEX in ${TEXFILES[@]}; do
-    ls *.aux | while read aux; do
+  for TEX in "${TEXFILES[@]}"; do
+    find ./ -type f -iname "*.aux" | while read -r aux; do
       #grep -q "${aux%.*}" ${TEX}
-      egrep -q ".*?\{\s*${aux%.*}\s*\}.*?" "${TEX}"
-      if [[ $? == 0 ]]; then
-        echo "${LIME_YELLOW}Concatenating $(basename ${aux}) into ${TEX} files for portability.${RS}"
+      if grep -Eq ".*?\{\s*${aux%.*}\s*\}.*?" "${TEX}"; then
+        echo "${LIME_YELLOW}Concatenating $(basename "${aux}") into ${TEX} files for portability.${RS}"
         mv "${TEX}" "${TEX}.orig"
-        printf "\\\begin{filecontents}{$(basename ${aux})}\n" > "${TEX}"
+        printf "\\\begin{filecontents}{$(basename "${aux}")}\n" > "${TEX}"
         cat "${aux}" >> "${TEX}"
         printf "\\\end{filecontents}\n" >> "${TEX}"
         cat "${TEX}.orig" >> "${TEX}"
@@ -104,29 +102,30 @@ cataux() { # This function should only be called from $TMPDIR
 }
 
 flattentex() { # This function should only be called fom $TMPDIR
-  for TEX in ${TEXFILES[@]}; do
+  for TEX in "${TEXFILES[@]}"; do
     echo "${LIME_YELLOW}Flattening \input and \include statements in ${TEX}.${RS}"
     mv "${TEX}" "${TEX}_tmp.tex"
     if [[ -f "${TEX%.*}.bbl" ]]; then
-        latexpand --verbose --fatal --expand-usepackage --expand-bbl "${TEX%.*}.bbl -o "${TEX}" "${TEX}_tmp.tex"
+        latexpand --verbose --fatal --expand-usepackage --expand-bbl "${TEX%.*}.bbl" -o "${TEX}" "${TEX}_tmp.tex"
         _result=$?
     else
         latexpand --verbose --fatal --expand-usepackage -o "${TEX}" "${TEX}_tmp.tex"
         _result=$?
     fi
     rm "${TEX}_tmp.tex" 2>/dev/null
-    if ${_result}; then
+    if [[ ${_result} == 0 ]]; then
       echo "${GREEN}${TEX} flattened.${RS}"
     else
       echo "${RED}latespand failed for ${TEX}.${RS}"
       exit 1
     fi
+  done
 }
 
 flattendirs() { # This function should only be called from $TMPDIR
-  for TEX in ${TEXFILES[@]}; do
+  for TEX in "${TEXFILES[@]}"; do
     echo "${LIME_YELLOW}Flattening directory structure for ${TEX}.${RS}"
-    _gfxpath=$(grep graphicspath ${TEX}| cut -d '{' -f '2-' | tr -d '{}')
+    _gfxpath=$(grep graphicspath "${TEX}"| cut -d '{' -f '2-' | tr -d '{}')
     _gfxpath=${_gfxpath%/}
     if [[ ! -d "${_gfxpath}" ]]; then
       ls
@@ -142,7 +141,7 @@ flattendirs() { # This function should only be called from $TMPDIR
 
 
 
-if [ ! -n "$1" ]; then
+if [ -z "$1" ]; then
   usage
   exit 0
 fi
@@ -181,7 +180,7 @@ while getopts ":o:zjf" options; do
 done
 
 # Convert OUTDIR to absolute path
-OUTDIR=$(cd "$OUTDIR"; pwd)
+OUTDIR="$(cd "$OUTDIR"; pwd)"
 
 if [[ ! -d "$OUTDIR" ]]; then
   echo "${RED}${OUTDIR} is not a directory!${RS}"
@@ -204,7 +203,7 @@ TEXFILES=()
 
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
-for TEX in $@
+for TEX in "$@"
 do
   if [[ -d "${TEX}" ]]; then
     if [[ "$OUTDIR" != $(cd "$TEX"; pwd) ]]; then
@@ -215,10 +214,10 @@ do
   echo ${TEX} | grep -q \.tex
   if [[ "$?" == 0 ]] && [[ -f ${TEX} ]] ; then
     echo "${YELLOW}Parsing ${TEX}${RS}."
-    TEXFILES+=($TEX)
+    TEXFILES+=("$TEX")
     echo "Finding deps for ${TEX}"
     finddeps "${TEX}" | xargs -n 1 -I % rsync -q --relative % "${TMPDIR}"
-    BIB=$(grep '\\bibliography' ${TEX} | cut -d '{' -f 2 | sed 's+}+.bib+')
+    BIB=$(grep '\\bibliography' "${TEX}" | cut -d '{' -f 2 | sed 's+}+.bib+')
     if [[ -f "$BIB" ]] ; then
       echo "${POWDER_BLUE}Adding ${BIB}${RS}"
       cp "${BIB}" "${TMPDIR}"
@@ -234,12 +233,11 @@ if [[ ${#TEXFILES[@]} == 0 ]]; then
   exit 0
 fi
 
-cd "${TMPDIR}"
-if [ $? == 0 ]
+if cd "${TMPDIR}"
 then
+  flattentex # Fold all \include and \input statements
   cataux # Cat any aux files required to render the tex file for portability
   catclass  # Cat the custom class file into the tex file for portability
-  flattentex # Fold all \include and \input statements
   #echo "${LIME_YELLOW}Removing comments from *.tex${RS}"
   #printf '%s\0' *.tex | xargs -0 -n 1 sed -i.bak '/^%.*$/d'
   flattendirs # Get rid of graphicspath and flatten directory structure
@@ -247,18 +245,26 @@ then
   texok=$?
   [[ $FORCE == 1 ]] && texok=0
   # Cleanup
-  while read todel; do
+  while read -r todel; do
     rm "$todel"
   done < <(cat .todel)
-  rm *.out *.bak .todel 2>/dev/null
+  rm ./*.out ./*.bak .todel 2>/dev/null
+  rm .tozip 2>/dev/null
 
   if [[ $ZIP == 1 ]] && [[ $texok == 0 ]]; then
     echo "${POWDER_BLUE}Compressing files to ${OUTDIR}/${BASENAME}.zip${RS}"
-    zip -r9 "${OUTDIR}/${BASENAME}.zip" *
+    for TEX in "${TEXFILES[@]}"; do
+        finddeps "${TEX}" | sed 's+\./++g' >> .tozip
+    done
+    zip -r9 "${OUTDIR}/${BASENAME}.zip" $(uniq .tozip | sed 's+\(.*?\)+"\1"+g')
   fi
   if [[ $BZ == 1 ]] && [[ $texok == 0 ]]; then
     echo "${POWDER_BLUE}Compressing files to ${OUTDIR}/${BASENAME}.tar.bz2${RS}"
-    tar -cjvf "${OUTDIR}/${BASENAME}.tar.bz2" *
+    for TEX in "${TEXFILES[@]}"; do
+        finddeps "${TEX}" | sed 's+\./++g' >> .tozip
+    done
+    uniq .tozip | sed 's+\(.*?\)+"\1"+g'
+    tar -cjvf "${OUTDIR}/${BASENAME}.tar.bz2" $(uniq .tozip | sed 's+\(.*?\)+"\1"+g')
   fi
   cd ..
   rm -fr "${TMPDIR}"
