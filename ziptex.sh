@@ -17,7 +17,7 @@ GREEN=$(tput setaf 2 2>/dev/null)
 YELLOW=$(tput setaf 3 2>/dev/null)
 LIME_YELLOW=$(tput setaf 190 2>/dev/null)
 POWDER_BLUE=$(tput setaf 153 2>/dev/null)
-#BLUE=$(tput setaf 4 2>/dev/null)
+BLUE=$(tput setaf 4 2>/dev/null)
 #MAGENTA=$(tput setaf 5 2>/dev/null)
 #CYAN=$(tput setaf 6 2>/dev/null)
 #WHITE=$(tput setaf 7 2>/dev/null)
@@ -64,6 +64,7 @@ checktex() { # This function should only be called from $TMPDIR
 }
 
 catclass() { # This function should only be called from $TMPDIR
+  echo "${BLUE}Looking for cls files to concatenate.${RS}"
   # Check for CUSTOM_CLASS
   [[ -z ${CUSTOM_CLASS} ]] && return
   # If a copy of the cls file exists locally, use that one
@@ -81,9 +82,9 @@ catclass() { # This function should only be called from $TMPDIR
 }
 
 cataux() { # This function should only be called from $TMPDIR
+  echo "${BLUE}Looking for aux files to concatenate.${RS}"
   for TEX in "${TEXFILES[@]}"; do
-    find ./ -type f -iname "*.aux" | while read -r aux; do
-      #grep -q "${aux%.*}" ${TEX}
+    find . -type f -iname "*.aux" | sed "s|^\./||" | while read -r aux; do
       if grep -Eq ".*?\{\s*${aux%.*}\s*\}.*?" "${TEX}"; then
         echo "${LIME_YELLOW}Concatenating $(basename "${aux}") into ${TEX} files for portability.${RS}"
         mv "${TEX}" "${TEX}.orig"
@@ -97,6 +98,7 @@ cataux() { # This function should only be called from $TMPDIR
 }
 
 flattentex() { # This function should only be called fom $TMPDIR
+  echo "${BLUE}Looking for tex files to concatenate.${RS}"
   for TEX in "${TEXFILES[@]}"; do
     echo "${LIME_YELLOW}Flattening \input and \include statements in ${TEX}.${RS}"
     mv "${TEX}" "${TEX}_tmp.tex"
@@ -242,6 +244,7 @@ then
   [[ $FORCE == 1 ]] && texok=0
   # Cleanup
   while read -r todel; do
+    echo "${BLUE}Cleaning up $todel."
     rm "$todel"
   done < <(cat .todel)
   rm ./*.out ./*.bak .todel 2>/dev/null
