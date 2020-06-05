@@ -136,6 +136,9 @@
   {}
   {}
 
+%% Dispersity symbol (\Dbar)
+\ProvideTextCommand{\Dbar}{OT1}{\raisebox{0.25ex}{-}\kern-0.4em D}
+
 \newcommand{\red}[1]{\textcolor{red}{#1}}%
 \newcommand{\blue}[1]{\textcolor{blue}{#1}}%
 \newcommand{\green}[1]{\textcolor{green}{#1}}%
