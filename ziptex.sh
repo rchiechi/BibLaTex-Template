@@ -222,6 +222,8 @@ do
     fi
   elif [[ -f "${TEX}" ]]; then
     cp "${TEX}" "${TMPDIR}"
+  else
+      echo "Not sure what to do with ${TEX}."
   fi
 done
 IFS=$SAVEIFS
@@ -259,13 +261,13 @@ then
     echo "${POWDER_BLUE}Compressing files to ${OUTDIR}/${BASENAME}.zip${RS}"
     # .tozip has one file per line and sed quotes them already
     # shellcheck disable=SC2046
-    zip -r9 "${OUTDIR}/${BASENAME}.zip" $(uniq .tozip | sed 's+\(.*?\)+"\1"+g') 2>/dev/null
+    zip -r9 "${OUTDIR}/${BASENAME}.zip" $(uniq .tozip | sed 's+\(.*?\)+"\1"+g') *.bib 2>/dev/null
   fi
   if [[ $BZ == 1 ]] && [[ $texok == 0 ]]; then
     echo "${POWDER_BLUE}Compressing files to ${OUTDIR}/${BASENAME}.tar.bz2${RS}"
     # .tozip has one file per line and sed quotes them already
     # shellcheck disable=SC2046
-    tar -cjvf "${OUTDIR}/${BASENAME}.tar.bz2" $(uniq .tozip | sed 's+\(.*?\)+"\1"+g')
+    tar -cjvf "${OUTDIR}/${BASENAME}.tar.bz2" $(uniq .tozip | sed 's+\(.*?\)+"\1"+g') *.bib
   fi
   rm .tozip 2>/dev/null
   cd ..
