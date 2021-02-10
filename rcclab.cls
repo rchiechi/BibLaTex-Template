@@ -30,6 +30,7 @@
 \DeclareStringOption[chem-acs]{bibstyle}[chem-acs]
 \DeclareStringOption[false]{articletitle}[false]
 \DeclareBoolOption[false]{suppinfo}
+\DeclareBoolOption[false]{numberedsubsections}
 \ProcessKeyvalOptions{rcclab}
 \PassOptionsToPackage{style=\rcclab@bibstyle,articletitle=\rcclab@articletitle}{biblatex}
 \RequirePackage{biblatex} % For BibLaTeX referencing
@@ -108,10 +109,17 @@
  {-6pt}{1pt}%
  {\bfseries}%
 }
+\ifrcclab@numberedsubsections
+\renewcommand{\subsection}{\@startsection {subsection}{2}{0pt}%
+ {-0pt}{-0.5em}%
+ {\bfseries}%
+}
+\else
 \renewcommand{\subsection}{\@startsection {subsection}{2}{0pt}%
  {-0pt}{-0.5em}%
  {\bfseries}*%
 }
+\fi
 \fi
 
 %% Define the methods environment.  Use \subsection to separate.
