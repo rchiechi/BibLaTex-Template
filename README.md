@@ -1,38 +1,52 @@
 BibLaTex-Template defines a class and provides example files for writing scientific manuscripts.
 
-
 # rcclab.cls
+
 A LaTeX class for writing articles.
 
-#### Macros Defined:  
+#### Macros Defined:
 
-Colors:  
-* \red{ ... }
-* \blue{ ... }
-* \green{ ... }
+Colors:
 
-Latin abbreviations:  
-* \ie{ ... } *i.e.,*
-* \eg{ ... } *e.g.,*
-* \et{ ... } *et al.*  
+- \red{ ... }
+- \blue{ ... }
+- \green{ ... }
 
-Template-stripped surfaces:  
-* \ts{ Metal } *Metal<sup>TS</sup>*
-* \mica{ Metal } *Metal<sup>Mica</sup>*
-* \afp{ Metal } *Metal<sup>AFM</sup>*
-* \cp{ Metal } *Metal<sup>AFM</sup>*  
+Latin abbreviations:
+
+- \ie{ ... } _i.e.,_
+- \eg{ ... } _e.g.,_
+- \et{ ... } _et al._
+
+Template-stripped surfaces:
+
+- \ts{ Metal } _Metal<sup>TS</sup>_
+- \mica{ Metal } _Metal<sup>Mica</sup>_
+- \afp{ Metal } _Metal<sup>AFM</sup>_
+- \cp{ Metal } _Metal<sup>AFM</sup>_
 
 Constants:
-* $\fermi$ *E<sub>f</sub>*
-* $\egap$ *E<sub>g</sub>*  
 
-Units:  
-* \Junits *A cm<sup>-2</sup>*
-* \logJ *log|J|*
-* \logI *log|I|*
-* \vtrans *V<sub>trans</sub>*
-* \vtransp{ +/- } *V<sub>trans</sub><sup>+/-</sup>*
-* \degC{ ... } *...°C*
+- $\fermi$ _E<sub>f</sub>_
+- $\egap$ _E<sub>g</sub>_
+
+Units:
+
+- \Junits _A cm<sup>-2</sup>_
+- \logJ _log|J|_
+- \logI _log|I|_
+- \vtrans _V<sub>trans</sub>_
+- \vtransp{ +/- } _V<sub>trans</sub><sup>+/-</sup>_
+- \degC{ ... } _...°C_
+
+SI Units:
+
+- \si{\molar}
+- \si{\Molar}
+- \si{\torr}
+- \si{\calorie}
+- \si{\debye}
 
 References:
-* \citenum{} *Write out the number of a reference in normal case.*
+
+- \citenum{} _Write out the number of a reference in normal case._
