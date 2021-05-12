@@ -160,6 +160,9 @@
 \newcommand*{\afm}[1]{$\mathrm{#1}^{\mathrm{AFM}}$}%
 \newcommand*{\cp}[1]{$\mathrm{#1}^{\mathrm{AFM}}$}%
 
+\newcommand*{\Mn}{$M_\mathrm{n}$}
+\newcommand*{\Mw}{$M_\mathrm{w}$}
+
 \newcommand*{\fermi}{E_\mathrm{f}} % Use inside math
 \newcommand*{\egap}{E_\mathrm{g}} % Use inside math
 \newcommand*{\Junits}{\si{Acm^{-2}}}%

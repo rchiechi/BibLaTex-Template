@@ -29,6 +29,8 @@ Constants:
 
 - $\fermi$ _E<sub>f</sub>_
 - $\egap$ _E<sub>g</sub>_
+- \Mn _M<sub>n</sub>_
+- \Mw _M<sub>w</sub>_
 
 Units:
 
@@ -41,11 +43,11 @@ Units:
 
 SI Units:
 
-- \si{\molar}
-- \si{\Molar}
-- \si{\torr}
-- \si{\calorie}
-- \si{\debye}
+- \si{\molar} _mol dm<sup>-3</sup>_
+- \si{\Molar} _M_
+- \si{\torr} _torr_
+- \si{\calorie} _cal_
+- \si{\debye} _D_
 
 References:
 
