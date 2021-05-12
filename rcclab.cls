@@ -175,3 +175,4 @@
 \DeclareSIUnit\Molar{\textsc{M}}
 \DeclareSIUnit\torr{torr}
 \DeclareSIUnit\calorie{cal}
+\DeclareSIUnit\debye{D}
