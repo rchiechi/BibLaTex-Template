@@ -169,7 +169,8 @@
 \newcommand*{\logJ}{$\log|J|$}%
 \newcommand*{\logI}{$\log|I|$}%
 \newcommand*{\vtrans}{$V_{\mathrm{trans}}$}%
-\newcommand*{\vtransp}[1]{$V_{\mathrm{trans}}^{#1}$}%
+\newcommand*{\vtransp}[1]{$V_{\mathrm{trans}}^{(#1)}$}%
+\newcommand*{\vtransmm}[1]{V_{\mathrm{trans}(#1)}}%
 \newcommand*{\degC}[1]{\SI{#1}{\celsius}}%
 
 
