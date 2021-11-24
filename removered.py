@@ -8,8 +8,12 @@ def removered(INFILE):
     OUTPUT=[]
     TOSSED=0
     with open(INFILE, 'rt') as fh:
+        print("Parsing %s" % INFILE)
+        _line = 1
         while True:
             _c = fh.read(1)
+            if _c == '\n':
+                _line += 1
             if not _c:
                 break
             else:
@@ -19,8 +23,9 @@ def removered(INFILE):
                         OUTPUT.pop()
                 _c = fh.read(1)
                 if _c != '{':
-                    print("{ didn't follow start!")
-                    sys.exit()
+                    print("ERROR '{' didn't follow start! (Line: %s)" % _line)
+                    return
+                    #sys.exit()
                 n = 0
                 while True:
                     _c = fh.read(1)
