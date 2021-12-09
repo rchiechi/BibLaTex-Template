@@ -10,7 +10,7 @@ TMPDIR="LaTeX"
 # MISC
 LC_CTYPE=C
 BASENAME=$(basename "$PWD")
-
+STATUS="OK"
 ##########################
 RED=$(tput setaf 1 2>/dev/null)
 GREEN=$(tput setaf 2 2>/dev/null)
@@ -43,8 +43,12 @@ exit_abnormal() {
 }
 
 finddeps() {
-  pdflatex -draft -record -halt-on-error "$1" >/dev/null
-  awk '!x[$0]++' "${1%.tex}.fls" | sed '/^INPUT \/.*/d' | sed '/^OUTPUT .*/d' | sed '/^PWD .*/d' | sed 's/^INPUT //g'
+  if pdflatex -draft -record -halt-on-error "$1" >/dev/null
+  then
+    awk '!x[$0]++' "${1%.tex}.fls" | sed '/^INPUT \/.*/d' | sed '/^OUTPUT .*/d' | sed '/^PWD .*/d' | sed 's/^INPUT //g'
+  else
+    exit_abnormal
+  fi
 }
 
 checktex() { # This function should only be called from $TMPDIR
@@ -113,7 +117,7 @@ flattentex() { # This function should only be called fom $TMPDIR
     if [[ ${_result} == 0 ]]; then
       echo "${GREEN}${TEX} flattened.${RS}"
     else
-      echo "${RED}latespand failed for ${TEX}.${RS}"
+      echo "${RED}latexpand failed for ${TEX}.${RS}"
       exit_abnormal
     fi
   done
@@ -215,6 +219,11 @@ do
     TEXFILES+=("${TEX}")
     echo "Finding deps for ${TEX}"
     finddeps "${TEX}" | xargs -n 1 -I % rsync -q --relative % "${TMPDIR}"
+    if [[ $STATUS != "OK" ]]
+    then
+      echo "${RED}${STATUS} for ${TEX}.${RS}"
+      exit_abnormal
+    fi
     BIB=$(grep '\\bibliography' "${TEX}" | cut -d '{' -f 2 | sed 's+}+.bib+')
     if [[ -f "$BIB" ]] ; then
       echo "${POWDER_BLUE}Adding ${BIB}${RS}"
@@ -274,3 +283,4 @@ else
   echo "${RED}Error enterting temp dir ${TMPDIR}${RS}"
   exit_abnormal
 fi
+
