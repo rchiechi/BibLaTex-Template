@@ -21,6 +21,7 @@
 \RequirePackage{hyperref} % Hyperlinks
 \RequirePackage{ifthen}
 \RequirePackage{kvoptions}
+\RequirePackage[capitalize]{cleveref}
 \SetupKeyvalOptions{%
  family=rcclab,
  prefix=rcclab@,
@@ -72,7 +73,8 @@
  \renewcommand{\baselinestretch}{1}
  \setcounter{enumi}{1}%
  \setlength{\parindent}{0in}%
- \slshape\sloppy%
+ %\slshape\sloppy
+  \normalfont\sloppy
  \begin{list}{\upshape$^{\arabic{enumi}}$}{%
   \usecounter{enumi}%
   \setlength{\leftmargin}{0in}%
