@@ -34,7 +34,18 @@ RS=$(tput sgr0 2>/dev/null)
 #
 # NOTE: To remove BibLaTex: https://tex.stackexchange.com/questions/12175/biblatex-submitting-to-a-journal
 #
+# In the preamble, after the biblatex package is loaded via \usepackage[...]{biblatex}:
 #
+# \usepackage{biblatex2bibitem}
+# At the very end of document:
+#
+# \printbibitembibliography
+# The desired bibitems will be written directly to the PDF file.
+# 
+# When it's time to switch to bibitems (e.g. before sending the paper to the journal), just copy them to your .tex file, remove biblatex commands and load cite package.
+#
+
+
 
 usage() {
   echo "${LIME_YELLOW}Usage: $0 [ -f] [ -z ] [ -j ] [ -o OUTDIR ] .tex <.tex> ... ${RS}"
