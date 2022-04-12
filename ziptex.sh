@@ -32,6 +32,9 @@ RS=$(tput sgr0 2>/dev/null)
 #
 # NOTE: May not work if filenames have spaces in them!
 #
+# NOTE: To remove BibLaTex: https://tex.stackexchange.com/questions/12175/biblatex-submitting-to-a-journal
+#
+#
 
 usage() {
   echo "${LIME_YELLOW}Usage: $0 [ -f] [ -z ] [ -j ] [ -o OUTDIR ] .tex <.tex> ... ${RS}"
