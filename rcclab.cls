@@ -14,13 +14,14 @@
 \RequirePackage{float} % So we can force figures to appear in the rigth place
 \RequirePackage[version=4]{mhchem} % Formula subscripts using \ce{}
 \RequirePackage{xcolor} % For colored text
-\RequirePackage[separate-uncertainty=true,detect-all,range-units=single]{siunitx} % Enables \SI{} for units
+\RequirePackage{siunitx} % Enables \SI{} for units
 \RequirePackage[utf8]{inputenc} % Needed to render UTF8 characters
 \RequirePackage{subfig} % For sub figures because some people like them for some reason
 \RequirePackage{xr} % For cross-referencing figures
 \RequirePackage{hyperref} % Hyperlinks
 \RequirePackage{ifthen}
 \RequirePackage{kvoptions}
+\RequirePackage{booktabs}
 \RequirePackage[capitalize]{cleveref}
 \SetupKeyvalOptions{%
  family=rcclab,
@@ -137,7 +138,10 @@
 }{}
 
 % Setup SI units pacakge for \SI, \si and \SIrange commands
-\sisetup{detect-all}%
+\sisetup{detect-all}
+\sisetup{separate-uncertainty=true}
+\sisetup{range-units=single}
+\sisetup{mode=match}
 
 %% Provide some common macros
 \DeclareCiteCommand{\citenum}
