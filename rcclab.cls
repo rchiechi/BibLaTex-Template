@@ -14,7 +14,7 @@
 \RequirePackage{float} % So we can force figures to appear in the rigth place
 \RequirePackage[version=4]{mhchem} % Formula subscripts using \ce{}
 \RequirePackage{xcolor} % For colored text
-\RequirePackage[separate-uncertainty=true,detect-all]{siunitx} % Enables \SI{} for units
+\RequirePackage[separate-uncertainty=true,detect-all,range-units=single]{siunitx} % Enables \SI{} for units
 \RequirePackage[utf8]{inputenc} % Needed to render UTF8 characters
 \RequirePackage{subfig} % For sub figures because some people like them for some reason
 \RequirePackage{xr} % For cross-referencing figures
