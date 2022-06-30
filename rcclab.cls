@@ -138,10 +138,10 @@
 }{}
 
 % Setup SI units pacakge for \SI, \si and \SIrange commands
-\sisetup{detect-all}
-\sisetup{separate-uncertainty=true}
-\sisetup{range-units=single}
-\sisetup{mode=match}
+\sisetup{mode = match}
+\sisetup{propagate-math-font = true}
+\sisetup{uncertainty-mode = separate}
+\sisetup{range-units = single}
 
 %% Provide some common macros
 \DeclareCiteCommand{\citenum}
@@ -181,6 +181,7 @@
 
 
 % Chemistry Units
+\DeclareSIPrefix{\micro}{\text{\textmu}}{-6}
 \DeclareSIUnit\molar{\mole\per\cubic\deci\metre}
 \DeclareSIUnit\Molar{\textsc{M}}
 \DeclareSIUnit\torr{torr}
