@@ -187,3 +187,4 @@
 \DeclareSIUnit\torr{torr}
 \DeclareSIUnit\calorie{cal}
 \DeclareSIUnit\debye{D}
+\DeclareSIUnit\angstrom{\protect \text  {Å}}
