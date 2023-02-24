@@ -54,6 +54,7 @@
  \def\thepage{S-\arabic{page}}
  \renewcommand*\thefigure{S\@arabic\c@figure}
  \renewcommand*\thetable{S\@arabic\c@table}
+ \renewcommand*\thesection{S\@arabic\c@section}
  \renewcommand{\theequation}{S\arabic{equation}}
  \newcommand{\@siprefix}{Supporting Information for: }
 \else
