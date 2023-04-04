@@ -31,10 +31,12 @@
 
 \DeclareStringOption[chem-acs]{bibstyle}[chem-acs]
 \DeclareStringOption[false]{articletitle}[false]
+\DeclareStringOption[false]{articledoi}[false]
+\DeclareStringOption[false]{articleurl}[false]
 \DeclareBoolOption[false]{suppinfo}
 \DeclareBoolOption[false]{numberedsubsections}
 \ProcessKeyvalOptions{rcclab}
-\PassOptionsToPackage{style=\rcclab@bibstyle,articletitle=\rcclab@articletitle}{biblatex}
+\PassOptionsToPackage{style=\rcclab@bibstyle,articletitle=\rcclab@articletitle,doi=\rcclab@articledoi,url=\rcclab@articleurl}{biblatex}
 \RequirePackage{biblatex} % For BibLaTeX referencing
 
 %% Some style parameters
