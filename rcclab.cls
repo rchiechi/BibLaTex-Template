@@ -1,7 +1,7 @@
 %% Class rcclab
 %% Adapted from the nature class https://www.ctan.org/tex-archive/macros/latex/contrib/nature/
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{rcclab}[11/12/2019 v1.0]
+\ProvidesClass{rcclab}[2023-11-16 v1.1]
 \typeout{A class for writing RCCLab manuscripts}
 \typeout{Written by Ryan Chiechi}
 \typeout{ }
@@ -33,10 +33,17 @@
 \DeclareStringOption[false]{articletitle}[false]
 \DeclareStringOption[false]{articledoi}[false]
 \DeclareStringOption[false]{articleurl}[false]
+\DeclareStringOption[100]{maxauthors}[100]
 \DeclareBoolOption[false]{suppinfo}
 \DeclareBoolOption[false]{numberedsubsections}
 \ProcessKeyvalOptions{rcclab}
-\PassOptionsToPackage{style=\rcclab@bibstyle,articletitle=\rcclab@articletitle,doi=\rcclab@articledoi,url=\rcclab@articleurl}{biblatex}
+
+\PassOptionsToPackage{style=\rcclab@bibstyle,
+articletitle=\rcclab@articletitle,
+doi=\rcclab@articledoi,
+url=\rcclab@articleurl,
+maxbibnames=\rcclab@maxauthors}{biblatex}
+
 \RequirePackage{biblatex} % For BibLaTeX referencing
 
 %% Some style parameters
