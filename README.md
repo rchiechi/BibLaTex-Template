@@ -3,6 +3,13 @@ BibLaTex-Template defines a class and provides example files for writing scienti
 # rcclab.cls
 
 A LaTeX class for writing articles.
+Customize with `documentclass[key=value]{rcclab}`
+Keys passed to biblatex:
+- bibstyle (*e.g.,* chem-acs)
+- articletitle (bool) show article titles in bibliography
+- doi (bool) show DOIs in bibliography
+- url (bool) show URLs in bibliography
+- maxbibnames (int) how many authors to list before truncating with et al.
 
 #### Macros Defined:
 
