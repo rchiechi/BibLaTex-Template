@@ -3,7 +3,7 @@ BibLaTex-Template defines a class and provides example files for writing scienti
 # rcclab.cls
 
 A LaTeX class for writing articles.
-Customize with `documentclass[key=value]{rcclab}`
+Customize with `\documentclass[key=value]{rcclab}`
 Keys passed to biblatex:
 - bibstyle (*e.g.,* chem-acs)
 - articletitle (bool) show article titles in bibliography
@@ -34,8 +34,8 @@ Template-stripped surfaces:
 
 Constants:
 
-- $\fermi$ _E<sub>f</sub>_
-- $\egap$ _E<sub>g</sub>_
+- (in mathmode) \fermi _E<sub>f</sub>_
+- (in mathmode) \egap _E<sub>g</sub>_
 - \Mn _M<sub>n</sub>_
 - \Mw _M<sub>w</sub>_
 
