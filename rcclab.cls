@@ -8,7 +8,7 @@
 
 \LoadClass[12pt]{article}
 \RequirePackage{setspace}
-\RequirePackage{stix} % Super nice science font
+\RequirePackage{stix2} % Super nice science font
 \RequirePackage{fullpage} % Non-stupid layout
 \RequirePackage{graphicx} % Figures
 \RequirePackage{float} % So we can force figures to appear in the rigth place

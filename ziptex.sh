@@ -61,6 +61,7 @@ finddeps() {
   then
     awk '!x[$0]++' "${1%.tex}.fls" | sed '/^INPUT \/.*/d' | sed '/^OUTPUT .*/d' | sed '/^PWD .*/d' | sed 's/^INPUT //g'
   else
+	echo "Error finding deps"
     exit_abnormal
   fi
 }
@@ -231,7 +232,7 @@ do
   if echo "${TEX}" | grep -q \.tex && [[ -f "${TEX}" ]]; then
     echo "${YELLOW}Parsing ${TEX}${RS}."
     TEXFILES+=("${TEX}")
-    echo "Finding deps for ${TEX}"
+    echo "Finding deps for ${TEX}" 
     finddeps "${TEX}" | xargs -n 1 -I % rsync -q --relative % "${TMPDIR}"
     if [[ $STATUS != "OK" ]]
     then
