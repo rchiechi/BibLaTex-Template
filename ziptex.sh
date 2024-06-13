@@ -159,7 +159,9 @@ flattendirs() { # This function should only be called from $TMPDIR
   find ./ -depth -type d -empty -delete
 }
 
-
+findbadchars() { # Find unicode characters that break pdflatex
+    cat "${1%.*}.log" | egrep 'There is no . (.*?) in font' | cut -d '(' -f 1 | cut -d ' ' -f 6
+}
 
 if [ -z "$1" ]; then
   usage
@@ -234,6 +236,22 @@ do
   fi
   
   if echo "${TEX}" | grep -q \.tex && [[ -f "${TEX}" ]]; then
+    echo "${YELLOW}Checking for bad characters in ${TEX%.*}.log${RS}."
+    BADCHRS=0
+    while read -r chr
+    do
+      BADCHRS=1
+      printf "*** '$chr' ***:\n"
+      grep -H "$chr" *.tex 2>/dev/null
+      grep -H "$chr" *.bib 2>/dev/null
+      grep -H "$chr" *.bbl 2>/dev/null
+    done< <(cat "${TEX%.*}.log" | egrep 'There is no . (.*?) in font' | cut -d '(' -f 1 | cut -d ' ' -f 6)
+ 
+    if [[ $BADCHRS == 1 ]]
+    then
+      exit_abnormal "${RED}Cannot continue parsing ${TEX}${RS}."
+    fi
+
     echo "${YELLOW}Parsing ${TEX}${RS}."
     TEXFILES+=("${TEX}")
     echo "Checking deps for ${TEX}"
@@ -243,7 +261,7 @@ do
     if [[ $STATUS != "OK" ]]
     then
       echo "${RED}${STATUS} for ${TEX}.${RS}"
-      exit_abnormal
+      
     fi
     BIB=$(grep '\\bibliography' "${TEX}" | cut -d '{' -f 2 | sed 's+}+.bib+')
     if [[ -f "$BIB" ]] ; then
