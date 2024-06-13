@@ -8,7 +8,6 @@
 
 \LoadClass[12pt]{article}
 \RequirePackage{setspace}
-\RequirePackage{stix2} % Super nice science font
 \RequirePackage{fullpage} % Non-stupid layout
 \RequirePackage{graphicx} % Figures
 \RequirePackage{float} % So we can force figures to appear in the rigth place
@@ -36,7 +35,12 @@
 \DeclareStringOption[100]{maxauthors}[100]
 \DeclareBoolOption[false]{suppinfo}
 \DeclareBoolOption[false]{numberedsubsections}
+\DeclareBoolOption[false]{stixfont}
 \ProcessKeyvalOptions{rcclab}
+
+\ifrcclab@stixfont
+ \RequirePackage{stix2} % Super nice science font
+\fi
 
 \PassOptionsToPackage{style=\rcclab@bibstyle,
 articletitle=\rcclab@articletitle,
