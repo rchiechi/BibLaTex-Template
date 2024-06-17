@@ -1,7 +1,7 @@
 %% Class rcclab
 %% Adapted from the nature class https://www.ctan.org/tex-archive/macros/latex/contrib/nature/
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{rcclab}[2023-11-16 v1.1]
+\ProvidesClass{rcclab}[2024-6-17 v1.2]
 \typeout{A class for writing RCCLab manuscripts}
 \typeout{Written by Ryan Chiechi}
 \typeout{ }

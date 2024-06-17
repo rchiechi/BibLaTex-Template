@@ -4,12 +4,14 @@ BibLaTex-Template defines a class and provides example files for writing scienti
 
 A LaTeX class for writing articles.
 Customize with `\documentclass[key=value]{rcclab}`
-Keys passed to biblatex:
+rcclab class keys:
 - bibstyle (*e.g.,* chem-acs)
 - articletitle (bool) show article titles in bibliography
-- doi (bool) show DOIs in bibliography
-- url (bool) show URLs in bibliography
-- maxbibnames (int) how many authors to list before truncating with et al.
+- articledoi (bool) show DOIs in bibliography
+- articleurl (bool) show URLs in bibliography
+- maxauthors (int) how many authors to list before truncating with et al.
+- numberedsubsections (bool) numbered sections
+- stixfont (bool) use the [stix font](https://www.stixfonts.org/) instead of computer modern
 
 #### Macros Defined:
 
@@ -34,18 +36,19 @@ Template-stripped surfaces:
 
 Constants:
 
-- (in mathmode) \fermi _E<sub>f</sub>_
-- (in mathmode) \egap _E<sub>g</sub>_
+- $\fermi$ _E<sub>f</sub>_
+- $\egap$ _E<sub>g</sub>_
 - \Mn _M<sub>n</sub>_
 - \Mw _M<sub>w</sub>_
 
 Units:
 
-- \Junits _A cm<sup>-2</sup>_
+- $\Junits$ _A cm<sup>-2</sup>_
 - \logJ _log|J|_
 - \logI _log|I|_
 - \vtrans _V<sub>trans</sub>_
 - \vtransp{ +/- } _V<sub>trans</sub><sup>+/-</sup>_
+- $\vtransmm$ _V<sub>trans</sub>__
 - \degC{ ... } _...°C_
 
 SI Units:
