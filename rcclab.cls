@@ -29,7 +29,7 @@
 }
 
 \DeclareStringOption[chem-acs]{bibstyle}[chem-acs]
-\DeclareStringOption[false]{articletitle}[false]
+\DeclareBoolOption[false]{noarticletitle}
 \DeclareStringOption[false]{articledoi}[false]
 \DeclareStringOption[false]{articleurl}[false]
 \DeclareStringOption[100]{maxauthors}[100]
@@ -42,11 +42,13 @@
  \RequirePackage{stix2} % Super nice science font
 \fi
 
+\usepackage{etoolbox}
+
 \PassOptionsToPackage{style=\rcclab@bibstyle,
-articletitle=\rcclab@articletitle,
 doi=\rcclab@articledoi,
 url=\rcclab@articleurl,
-maxbibnames=\rcclab@maxauthors}{biblatex}
+maxbibnames=\rcclab@maxauthors,
+articletitle=\ifbool{rcclab@noarticletitle}{false}{true}}{biblatex}
 
 \RequirePackage{biblatex} % For BibLaTeX referencing
 
