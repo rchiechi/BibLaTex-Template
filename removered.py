@@ -3,8 +3,7 @@
 import sys
 import os
 
-def removered(INFILE):
-    START=r'\red'
+def removered(INFILE, START=r'\red'):
     OUTPUT=[]
     TOSSED=0
     with open(INFILE, 'rt') as fh:
