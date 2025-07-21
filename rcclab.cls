@@ -199,7 +199,7 @@ articletitle=\ifbool{rcclab@noarticletitle}{false}{true}}{biblatex}
 % Chemistry Units
 \DeclareSIPrefix{\micro}{\text{\textmu}}{-6}
 \DeclareSIUnit\molar{\mole\per\cubic\deci\metre}
-\DeclareSIUnit\Molar{\textsc{M}}
+\DeclareSIUnit\Molar{\textsc{m}}
 \DeclareSIUnit\torr{torr}
 \DeclareSIUnit\calorie{cal}
 \DeclareSIUnit\debye{D}
