@@ -12,5 +12,6 @@
 *.swp
 *.run.xml
 *.tks
+ziplatex/tmp
 manuscript\.pdf
 supporting_information\.pdf

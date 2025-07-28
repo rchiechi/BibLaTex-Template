@@ -18,6 +18,7 @@ type Config struct {
 	Force        bool
 	Debug        bool
 	TexFiles     []string
+	AllFiles     []string  // All command line files including .bib
 }
 
 func main() {
@@ -39,23 +40,23 @@ func parseArgs() Config {
 	}
 	
 	flag.StringVar(&config.OutputDir, "o", defaultOutput, "Output directory")
-	flag.BoolVar(&config.CreateZip, "z", false, "Create ZIP archive")
-	flag.BoolVar(&config.CreateBz2, "j", false, "Create tar.bz2 archive")
+	flag.BoolVar(&config.CreateBz2, "j", false, "Create tar.bz2 archive (default: ZIP)")
 	flag.BoolVar(&config.Force, "f", false, "Force operation even if LaTeX compilation fails")
 	flag.BoolVar(&config.Debug, "debug", false, "Preserve temp directory for debugging")
 	
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "Usage: %s [-f] [-z] [-j] [--debug] [-o OUTDIR] file.tex [file2.tex ...]\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Usage: %s [-f] [-j] [--debug] [-o OUTDIR] file.tex [file2.tex ...]\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Creates ZIP archive by default. Use -j for tar.bz2 instead.\n")
 		flag.PrintDefaults()
 	}
 	
 	flag.Parse()
 	
-	// Validate arguments
-	if !config.CreateZip && !config.CreateBz2 {
-		fmt.Fprintln(os.Stderr, "Error: You must pick at least one archive option, -z or -j.")
-		flag.Usage()
-		os.Exit(1)
+	// Set archive type: default to ZIP unless -j is specified
+	if config.CreateBz2 {
+		config.CreateZip = false
+	} else {
+		config.CreateZip = true
 	}
 	
 	if flag.NArg() == 0 {
@@ -63,8 +64,16 @@ func parseArgs() Config {
 		os.Exit(1)
 	}
 	
-	// Get tex files from remaining arguments
-	config.TexFiles = flag.Args()
+	// Get all files from remaining arguments
+	config.AllFiles = flag.Args()
+	
+	// Separate tex files from other files 
+	config.TexFiles = []string{}
+	for _, file := range config.AllFiles {
+		if strings.HasSuffix(file, ".tex") {
+			config.TexFiles = append(config.TexFiles, file)
+		}
+	}
 	
 	// Set default values
 	config.TmpDir = "LaTeX"
@@ -168,21 +177,25 @@ func run(config Config) error {
 			}
 		}
 		
-		// Check for bibliography
-		if bibFile, err := extractBibliography(texFile); err == nil && bibFile != "" {
-			if _, err := os.Stat(bibFile); err == nil {
-				printPowderBlue("Adding bibliography %s\n", bibFile)
-				if err := copyFile(bibFile, filepath.Join(config.TmpDir, bibFile)); err == nil {
-					allDeps = append(allDeps, bibFile)
-				}
-			}
-		}
-		
 		validTexFiles = append(validTexFiles, filepath.Base(texFile))
 	}
 	
 	if len(validTexFiles) == 0 {
 		return fmt.Errorf("no valid tex files to process")
+	}
+	
+	// Copy all non-tex command-line files to temp directory (like .bib files)
+	for _, file := range config.AllFiles {
+		if !strings.HasSuffix(file, ".tex") {
+			if info, err := os.Stat(file); err == nil && !info.IsDir() {
+				printPowderBlue("Adding %s\n", file)
+				if err := copyFile(file, filepath.Join(config.TmpDir, filepath.Base(file))); err != nil {
+					fmt.Printf("Warning: could not copy %s: %v\n", file, err)
+				} else {
+					allDeps = append(allDeps, filepath.Base(file))
+				}
+			}
+		}
 	}
 	
 	// Change to temp directory for processing
@@ -258,9 +271,8 @@ func run(config Config) error {
 		}
 	}
 	
-	// Add bib files
-	bibFiles, _ := filepath.Glob("*.bib")
-	finalDeps = append(finalDeps, bibFiles...)
+	// Add all the files we copied from command line (including .bib files)
+	finalDeps = append(finalDeps, allDeps...)
 	
 	// Read .todel file to see what was concatenated and should be excluded
 	toDelFiles := make(map[string]bool)
