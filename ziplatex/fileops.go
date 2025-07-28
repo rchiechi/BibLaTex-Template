@@ -38,7 +38,7 @@ func copyFile(src, dst string) error {
 
 // catClass concatenates custom class files into tex files for portability
 func catClass(texFiles []string, customClass string) error {
-	fmt.Println("Looking for cls files to concatenate.")
+	printBlue("Looking for cls files to concatenate.\n")
 	
 	// Look for any .cls files in the current directory
 	clsFiles, err := filepath.Glob("*.cls")
@@ -60,7 +60,7 @@ func catClass(texFiles []string, customClass string) error {
 			if strings.Contains(string(content), "\\documentclass") && 
 			   strings.Contains(string(content), className) {
 				
-				fmt.Printf("Concatenating %s into %s for portability\n", clsFile, texFile)
+				printLimeYellow("Concatenating %s into %s for portability\n", clsFile, texFile)
 				
 				// Read class file content
 				classContent, err := ioutil.ReadFile(clsFile)
@@ -102,7 +102,7 @@ func catClass(texFiles []string, customClass string) error {
 
 // catAux concatenates aux files into tex files for portability
 func catAux(texFiles []string) error {
-	fmt.Println("Looking for aux files to concatenate.")
+	printBlue("Looking for aux files to concatenate.\n")
 	
 	for _, texFile := range texFiles {
 		texContent, err := ioutil.ReadFile(texFile)
@@ -116,7 +116,7 @@ func catAux(texFiles []string) error {
 		
 		// Check if the aux file exists
 		if _, err := os.Stat(auxFile); err == nil {
-			fmt.Printf("Concatenating %s into %s for portability\n", auxFile, texFile)
+			printLimeYellow("Concatenating %s into %s for portability\n", auxFile, texFile)
 			
 			auxContent, err := ioutil.ReadFile(auxFile)
 			if err != nil {
@@ -169,7 +169,7 @@ func flattenDirs(texFiles []string) error {
 			gfxPath := strings.Trim(matches[1], "{}")
 			gfxPath = strings.TrimSuffix(gfxPath, "/")
 			
-			fmt.Printf("Flattening directory structure for %s\n", texFile)
+			printLimeYellow("Flattening directory structure for %s\n", texFile)
 			
 			// Check if graphics path exists
 			if info, err := os.Stat(gfxPath); err == nil && info.IsDir() {

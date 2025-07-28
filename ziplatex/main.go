@@ -87,7 +87,7 @@ func parseArgs() Config {
 
 func run(config Config) error {
 	// Check required tools are available
-	fmt.Println("Checking required tools...")
+	printBlue("Checking required tools...\n")
 	if err := checkRequirements(config.CreateBz2); err != nil {
 		return err
 	}
@@ -124,7 +124,7 @@ func run(config Config) error {
 			continue
 		}
 		
-		fmt.Printf("Processing %s\n", texFile)
+		printYellow("Processing %s\n", texFile)
 		
 		// Check for bad Unicode characters
 		logFile := strings.TrimSuffix(texFile, ".tex") + ".log"
@@ -171,7 +171,7 @@ func run(config Config) error {
 		// Check for bibliography
 		if bibFile, err := extractBibliography(texFile); err == nil && bibFile != "" {
 			if _, err := os.Stat(bibFile); err == nil {
-				fmt.Printf("Adding bibliography %s\n", bibFile)
+				printPowderBlue("Adding bibliography %s\n", bibFile)
 				if err := copyFile(bibFile, filepath.Join(config.TmpDir, bibFile)); err == nil {
 					allDeps = append(allDeps, bibFile)
 				}
@@ -193,7 +193,7 @@ func run(config Config) error {
 	defer os.Chdir(originalDir)
 	
 	// Flatten tex files
-	fmt.Println("Flattening LaTeX files...")
+	printBlue("Flattening LaTeX files...\n")
 	for _, texFile := range validTexFiles {
 		bblFile := strings.TrimSuffix(texFile, ".tex") + ".bbl"
 		if err := runLatexpand(texFile, bblFile); err != nil {
@@ -233,14 +233,14 @@ func run(config Config) error {
 	}
 	
 	// Check if tex files compile
-	fmt.Println("Checking LaTeX compilation...")
+	printBlue("Checking LaTeX compilation...\n")
 	allOk := true
 	for _, texFile := range validTexFiles {
 		if err := checkTex(texFile); err != nil {
-			fmt.Printf("Error: %v\n", err)
+			printRed("Error: %v\n", err)
 			allOk = false
 		} else {
-			fmt.Printf("%s compiles successfully\n", texFile)
+			printGreen("%s compiles successfully\n", texFile)
 		}
 	}
 	
@@ -271,7 +271,7 @@ func run(config Config) error {
 			if line != "" {
 				toDelFiles[line] = true
 				// Remove the actual files as bash script does
-				fmt.Printf("Cleaning up %s\n", line)
+				printBlue("Cleaning up %s\n", line)
 				os.Remove(line)
 			}
 		}
@@ -330,7 +330,7 @@ func run(config Config) error {
 	// Create archives
 	if config.CreateZip {
 		zipPath := filepath.Join(config.OutputDir, basename+".zip")
-		fmt.Printf("Creating ZIP archive: %s\n", zipPath)
+		printPowderBlue("Creating ZIP archive: %s\n", zipPath)
 		
 		// Update paths to be relative to temp dir, but only include files that actually exist
 		zipFiles := []string{}
@@ -348,7 +348,7 @@ func run(config Config) error {
 	
 	if config.CreateBz2 {
 		bz2Path := filepath.Join(config.OutputDir, basename+".tar.bz2")
-		fmt.Printf("Creating tar.bz2 archive: %s\n", bz2Path)
+		printPowderBlue("Creating tar.bz2 archive: %s\n", bz2Path)
 		
 		// Update paths to be relative to temp dir, but only include files that actually exist
 		bz2Files := []string{}
