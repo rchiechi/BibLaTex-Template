@@ -161,6 +161,24 @@ articletitle=\ifbool{rcclab@noarticletitle}{false}{true}}{biblatex}
     \centering%
 }{\par\vspace{-6pt}}
 
+% TOC Graphic environment - caption without "Figure" label
+\newenvironment{tocgraphic}{%
+    \begin{figure}%
+    \renewcommand{\figurename}{}%
+    \renewcommand{\thefigure}{}%
+}{%
+    \end{figure}%
+}
+
+% Non-floating TOC graphic environment  
+\newenvironment{tocgraphic*}{%
+    \begin{figure}[H]%  % H from float package forces "here"
+    \renewcommand{\figurename}{}%
+    \renewcommand{\thefigure}{}%
+}{%
+    \end{figure}%
+}
+
 % Section formatting
 \ifrcclab@suppinfo
     % Don't redefine sections for SI
