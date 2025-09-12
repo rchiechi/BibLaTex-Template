@@ -161,11 +161,10 @@ articletitle=\ifbool{rcclab@noarticletitle}{false}{true}}{biblatex}
     \centering%
 }{\par\vspace{-6pt}}
 
-% TOC Graphic environment - caption without "Figure" label
+% TOC Graphic environment - caption without "Figure" label or separator
 \newenvironment{tocgraphic}{%
     \begin{figure}%
-    \renewcommand{\figurename}{}%
-    \renewcommand{\thefigure}{}%
+    \captionsetup{labelformat=empty,labelsep=none}%
 }{%
     \end{figure}%
 }
@@ -173,8 +172,7 @@ articletitle=\ifbool{rcclab@noarticletitle}{false}{true}}{biblatex}
 % Non-floating TOC graphic environment  
 \newenvironment{tocgraphic*}{%
     \begin{figure}[H]%  % H from float package forces "here"
-    \renewcommand{\figurename}{}%
-    \renewcommand{\thefigure}{}%
+    \captionsetup{labelformat=empty,labelsep=none}%
 }{%
     \end{figure}%
 }
