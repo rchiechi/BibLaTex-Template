@@ -30,6 +30,7 @@
     range-units = single,
     separate-uncertainty = true
 }
+\DeclareSIPrefix\micro{\text{\textmu}}{-6}
 
 % Font encoding
 \RequirePackage[T1]{fontenc}
