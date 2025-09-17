@@ -140,16 +140,29 @@ func run(config Config) error {
 		if _, err := os.Stat(logFile); err == nil {
 			badChars, err := findBadChars(logFile)
 			if err == nil && len(badChars) > 0 {
-				fmt.Printf("Found problematic characters in %s:\n", texFile)
+				// Only report if characters are actually found in source files
+				foundInSource := false
+				reportedChars := []string{}
 				for _, char := range badChars {
-					fmt.Printf("  Character '%s':\n", char)
 					locations, _ := findBadCharLocations(char, ".")
-					for _, loc := range locations {
-						fmt.Printf("    %s\n", loc)
+					if len(locations) > 0 {
+						foundInSource = true
+						reportedChars = append(reportedChars, char)
 					}
 				}
-				if !config.Force {
-					return fmt.Errorf("cannot continue processing %s due to bad characters", texFile)
+
+				if foundInSource {
+					fmt.Printf("Found problematic characters in source files:\n")
+					for _, char := range reportedChars {
+						fmt.Printf("  Character '%s':\n", char)
+						locations, _ := findBadCharLocations(char, ".")
+						for _, loc := range locations {
+							fmt.Printf("    %s\n", loc)
+						}
+					}
+					if !config.Force {
+						return fmt.Errorf("cannot continue processing %s due to bad characters in source files", texFile)
+					}
 				}
 			}
 		}

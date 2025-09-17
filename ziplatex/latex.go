@@ -100,11 +100,11 @@ func findBadChars(logFile string) ([]string, error) {
 	return badChars, nil
 }
 
-// findBadCharLocations searches for bad characters in tex/bib/bbl files
+// findBadCharLocations searches for bad characters in tex/bib files (not bbl)
 func findBadCharLocations(badChar string, dir string) ([]string, error) {
 	locations := []string{}
-	
-	patterns := []string{"*.tex", "*.bib", "*.bbl"}
+
+	patterns := []string{"*.tex", "*.bib"}
 	for _, pattern := range patterns {
 		files, err := filepath.Glob(filepath.Join(dir, pattern))
 		if err != nil {
